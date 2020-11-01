@@ -149,6 +149,60 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles\cplus.dir\build.make CMakeFiles/cplus.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+stl/stl.obj: stl/stl.cpp.obj
+
+.PHONY : stl/stl.obj
+
+# target to build an object file
+stl/stl.cpp.obj:
+	$(MAKE) -f CMakeFiles\cplus.dir\build.make CMakeFiles/cplus.dir/stl/stl.cpp.obj
+.PHONY : stl/stl.cpp.obj
+
+stl/stl.i: stl/stl.cpp.i
+
+.PHONY : stl/stl.i
+
+# target to preprocess a source file
+stl/stl.cpp.i:
+	$(MAKE) -f CMakeFiles\cplus.dir\build.make CMakeFiles/cplus.dir/stl/stl.cpp.i
+.PHONY : stl/stl.cpp.i
+
+stl/stl.s: stl/stl.cpp.s
+
+.PHONY : stl/stl.s
+
+# target to generate assembly for a file
+stl/stl.cpp.s:
+	$(MAKE) -f CMakeFiles\cplus.dir\build.make CMakeFiles/cplus.dir/stl/stl.cpp.s
+.PHONY : stl/stl.cpp.s
+
+stl/vectornew/vector.obj: stl/vectornew/vector.cpp.obj
+
+.PHONY : stl/vectornew/vector.obj
+
+# target to build an object file
+stl/vectornew/vector.cpp.obj:
+	$(MAKE) -f CMakeFiles\cplus.dir\build.make CMakeFiles/cplus.dir/stl/vectornew/vector.cpp.obj
+.PHONY : stl/vectornew/vector.cpp.obj
+
+stl/vectornew/vector.i: stl/vectornew/vector.cpp.i
+
+.PHONY : stl/vectornew/vector.i
+
+# target to preprocess a source file
+stl/vectornew/vector.cpp.i:
+	$(MAKE) -f CMakeFiles\cplus.dir\build.make CMakeFiles/cplus.dir/stl/vectornew/vector.cpp.i
+.PHONY : stl/vectornew/vector.cpp.i
+
+stl/vectornew/vector.s: stl/vectornew/vector.cpp.s
+
+.PHONY : stl/vectornew/vector.s
+
+# target to generate assembly for a file
+stl/vectornew/vector.cpp.s:
+	$(MAKE) -f CMakeFiles\cplus.dir\build.make CMakeFiles/cplus.dir/stl/vectornew/vector.cpp.s
+.PHONY : stl/vectornew/vector.cpp.s
+
 test/test.obj: test/test.cpp.obj
 
 .PHONY : test/test.obj
@@ -188,6 +242,12 @@ help:
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... stl/stl.obj
+	@echo ... stl/stl.i
+	@echo ... stl/stl.s
+	@echo ... stl/vectornew/vector.obj
+	@echo ... stl/vectornew/vector.i
+	@echo ... stl/vectornew/vector.s
 	@echo ... test/test.obj
 	@echo ... test/test.i
 	@echo ... test/test.s

@@ -83,6 +83,15 @@
 		<Unit filename="E:/lyh/cEssence/cplus/main.cpp">
 			<Option target="cplus"/>
 		</Unit>
+		<Unit filename="E:/lyh/cEssence/cplus/stl/knowledge.h">
+			<Option target="cplus"/>
+		</Unit>
+		<Unit filename="E:/lyh/cEssence/cplus/stl/stl.cpp">
+			<Option target="cplus"/>
+		</Unit>
+		<Unit filename="E:/lyh/cEssence/cplus/stl/vectornew/vector.cpp">
+			<Option target="cplus"/>
+		</Unit>
 		<Unit filename="E:/lyh/cEssence/cplus/test/test.cpp">
 			<Option target="cplus"/>
 		</Unit>
