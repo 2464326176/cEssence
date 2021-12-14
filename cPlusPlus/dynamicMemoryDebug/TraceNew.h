@@ -7,7 +7,7 @@
 #ifndef DEBUG_TRACENEW_H
 #define DEBUG_TRACENEW_H
 
-//#define DEBUGNEW
+#define DEBUGNEW
 
 #ifdef DEBUGNEW
 #include <map>

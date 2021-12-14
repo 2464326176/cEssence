@@ -7,8 +7,6 @@
 
 
 int main() {
-
-
     int *p = new int;
 
     int *ptr = new int[10];
