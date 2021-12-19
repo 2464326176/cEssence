@@ -1,6 +1,21 @@
 # cEssence
 
-# 指针
+# point
+
+```c++
+int value= 10；
+int *p = nullPtr；
+p  = &value;
+```
+
+1.  p是一个指针， 存储着变量value的地址；
+
+2.  指针p的类型必须与变量value类型一致；
+
+   value: 10, value: 000000000062fe00
+    p value: 10, p: 000000000062fe00
+
+   变量value值为10， 地址为000000000062fe00
 
 C++ 指针指向的对象声明为const或volatile
 
@@ -86,31 +101,148 @@ int main() {
 }
 ```
 
+# pointFunction and functionPoint
+
+// Declare pointer to any function that... 
+
+// ...accepts a string and returns a string 
+
+string (*g)(string a); *
+
+*// has no return value and no parameters void (*x)(); 
+
+// ...returns an int and takes three parameters 
+
+// of the specified types 
+
+int (*i)(int i, string s, double d);
+
+# smartPoint
 
 
-# **可重载运算符/不可重载运算符**
 
-下面是可重载的运算符列表：
+### 可重定义的运算符
 
-| 双目算术运算符 | + (加)，-(减)，*(乘)，/(除)，% (取模)                        |
-| -------------- | ------------------------------------------------------------ |
-| 关系运算符     | ==(等于)，!= (不等于)，< (小于)，> (大于)，<=(小于等于)，>=(大于等于) |
-| 逻辑运算符     | \|\|(逻辑或)，&&(逻辑与)，!(逻辑非)                          |
-| 单目运算符     | + (正)，-(负)，*(指针)，&(取地址)                            |
-| 自增自减运算符 | ++(自增)，--(自减)                                           |
-| 位运算符       | \| (按位或)，& (按位与)，~(按位取反)，^(按位异或),，<< (左移)，>>(右移) |
-| 赋值运算符     | =, +=, -=, *=, /= , % = , &=, \|=, ^=, <<=, >>=              |
-| 空间申请与释放 | new, delete, new[ ] , delete[]                               |
-| 其他运算符     | ()(函数调用)，->(成员访问)，,(逗号)，[](下标)                |
+| 运算符       | 名称                   | 类型   |
+| :----------- | :--------------------- | :----- |
+| **,**        | 逗号                   | 二进制 |
+| **!**        | 逻辑非                 | 一元   |
+| **!=**       | 不相等                 | 二进制 |
+| **%**        | Modulus                | 二进制 |
+| **%=**       | 取模赋值               | 二进制 |
+| **&**        | 位与                   | 二进制 |
+| **&**        | address-of             | 一元   |
+| **&&**       | 逻辑与                 | 二进制 |
+| **=**        | 按位“与”赋值           | 二进制 |
+| **( )**      | 函数调用               | —      |
+| **( )**      | 转换运算符             | 一元   |
+| **`\*`**     | 乘法                   | 二进制 |
+| **`\*`**     | 指针取消引用           | 一元   |
+| **`\*=`**    | 乘法赋值               | 二进制 |
+| **+**        | 加法                   | 二进制 |
+| **+**        | 一元加                 | 一元   |
+| **++**       | 递增 1                 | 一元   |
+| **+=**       | 加法赋值               | 二进制 |
+| **-**        | 减法                   | 二进制 |
+| **-**        | 一元求反               | 一元   |
+| **--**       | 减量 1                 | 一元   |
+| **-=**       | 减法赋值               | 二进制 |
+| **-**        | 成员选择               | 二进制 |
+| **`->\*`**   | 指向成员的指针选定内容 | 二进制 |
+| **/**        | 部门                   | 二进制 |
+| **/=**       | 除法赋值               | 二进制 |
+| **<**        | 小于                   | 二进制 |
+| **<<**       | 左移                   | 二进制 |
+| **=**        | 左移赋值               | 二进制 |
+| **=**        | 小于或等于             | 二进制 |
+| **=**        | 分配                   | 二进制 |
+| **==**       | 相等                   | 二进制 |
+| **>**        | 大于                   | 二进制 |
+| **=**        | 大于等于               | 二进制 |
+| **>>**       | 右移                   | 二进制 |
+| **=**        | 右移赋值               | 二进制 |
+| **[ ]**      | 数组下标               | —      |
+| **^**        | 异或                   | 二进制 |
+| **^=**       | 异或赋值               | 二进制 |
+| **\|**       | 位或                   | 二进制 |
+| **\|=**      | 按位“与或”赋值         | 二进制 |
+| **\|\|**     | 逻辑或                 | 二进制 |
+| **~**        | 二进制反码             | 一元   |
+| **`delete`** | 删除                   | —      |
+| **`new`**    | 新出现                 | —      |
+| 转换运算符   | 转换运算符             | 一元   |
 
-下面是不可重载的运算符列表：
+1 存在两个版本的一元增量和减量运算符：预递增和后递增。
 
-- `.：成员访问运算符`
-- `.*, ->*：成员指针访问运算符`
-- `::：域运算符`
-- `sizeof：长度运算符`
-- `?:：条件运算符`
-- `#： 预处理符号`
+有关详细信息 [，请参阅运算符重载的](https://docs.microsoft.com/zh-cn/cpp/cpp/general-rules-for-operator-overloading?view=msvc-170) 常规规则。 以下主题对各种类别的重载运算符的约束进行了介绍：
+
+- [一元运算符](https://docs.microsoft.com/zh-cn/cpp/cpp/overloading-unary-operators?view=msvc-170)
+- [二元运算符](https://docs.microsoft.com/zh-cn/cpp/cpp/binary-operators?view=msvc-170)
+- [分配](https://docs.microsoft.com/zh-cn/cpp/cpp/assignment?view=msvc-170)
+- [函数调用](https://docs.microsoft.com/zh-cn/cpp/cpp/function-call-cpp?view=msvc-170)
+- [下标](https://docs.microsoft.com/zh-cn/cpp/cpp/subscripting?view=msvc-170)
+- [类成员访问](https://docs.microsoft.com/zh-cn/cpp/cpp/member-access?view=msvc-170)
+- [递增和减量](https://docs.microsoft.com/zh-cn/cpp/cpp/increment-and-decrement-operator-overloading-cpp?view=msvc-170)。
+- [用户定义类型转换](https://docs.microsoft.com/zh-cn/cpp/cpp/user-defined-type-conversions-cpp?view=msvc-170)
+
+无法重载下表中显示的运算符。 该表包括预处理器符号 **#** 和 **##** 。
+
+### 不可重定义的运算符
+
+| 运算符   | 名称                   |
+| :------- | :--------------------- |
+| **.**    | 成员选择               |
+| **`.*`** | 指向成员的指针选定内容 |
+| **::**   | 范围解析               |
+| **? :**  | 条件逻辑               |
+| **#**    | 预处理器转换为字符串   |
+| **##**   | 预处理器串联           |
+
+尽管通常是在代码中遇到重载运算符时由编译器对其进行隐式调用，但也可以按照与调用任何成员或非成员函数相同的方式来显式调用重载运算符：
+
+C++复制
+
+```cpp
+Point pt;
+pt.operator+( 3 );  // Call addition operator to add 3 to pt.
+```
+
+## 示例
+
+下面的示例重载 运算符 **+** 以添加两个复数并返回结果。
+
+C++复制
+
+```cpp
+// operator_overloading.cpp
+// compile with: /EHsc
+#include <iostream>
+using namespace std;
+
+struct Complex {
+   Complex( double r, double i ) : re(r), im(i) {}
+   Complex operator+( Complex &other );
+   void Display( ) {   cout << re << ", " << im << endl; }
+private:
+   double re, im;
+};
+
+// Operator overloaded using a member function
+Complex Complex::operator+( Complex &other ) {
+   return Complex( re + other.re, im + other.im );
+}
+
+int main() {
+   Complex a = Complex( 1.2, 3.4 );
+   Complex b = Complex( 5.6, 7.8 );
+   Complex c = Complex( 0.0, 0.0 );
+
+   c = a + b;
+   c.Display();
+}
+```
+
+
 
 # 函数声明的各个部分
 
