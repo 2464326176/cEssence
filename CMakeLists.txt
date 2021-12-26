@@ -5,4 +5,4 @@ set(CMAKE_CXX_STANDARD 14)
 
 
 add_executable(cEssence
-         cPlusPlus/point/autoPtr.cpp)
+         cPlusPlus/stl/vector/strvec.cpp cPlusPlus/stl/vector/strvec.h cPlusPlus/stl/vector/main.cpp)
