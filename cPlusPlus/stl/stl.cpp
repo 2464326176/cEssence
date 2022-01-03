@@ -5,44 +5,39 @@
 //********************
 //
 #include <iostream>
-#include <map>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <cctype>
+#include <cstring>
+#include <list>
 
-using std::ostream;
-using std::cout;
-using std::cin;
-using std::endl;
 using std::string;
-using std::make_pair;
-using std::pair;
 using std::vector;
-using std::map;
+using std::cout;
+using std::endl;
+using std::list;
 
-class Families
-{
-public:
-    using Child     = pair<string, string>;
-    using Children  = vector<Child>;
-    using Data      = map<string, Children>;
+int main() {
+    std::vector<int> vec1{ 1, 2, 3, 4, 5 };
+    std::vector<int> vec2{ 1, 2, 3, 4, 5 };
+    std::vector<int> vec3{ 1, 2, 3, 4 };
 
-    void add(string const& last_name, string const& first_name, string birthday)
-    {
-        auto child = make_pair(first_name, birthday);
-        _data[last_name].push_back(child);
-    }
+    std::cout << (vec1 == vec2 ? "true" : "false") << std::endl;
+    std::cout << (vec1 == vec3 ? "true" : "false") << std::endl;
 
-    void print() const
-    {
-        for (auto const& pair : _data)
-        {
-            cout << pair.first << ":\n" ;
-            for (auto const& child : pair.second)
-                cout << child.first << " " << child.second << endl;
-            cout << endl;
-        }
-    }
+    std::list<int>      li{ 1, 2, 3, 4, 5 };
 
-private:
-    Data _data;
-};
+    std::cout << (std::vector<int>(li.begin(), li.end()) == vec2 ? "true" : "false") << std::endl;
+    std::cout << (std::vector<int>(li.begin(), li.end()) == vec3 ? "true" : "false") << std::endl;
+
+    list<int> numbers = { 1, 2, 3, 4, 5 };
+    list<int> numbers2(numbers);        // ok, numbers2 has the same elements as numbers
+    //vector<int> numbers3(numbers);      // error: no matching function for call...
+    //list<double> numbers4(numbers);     // error: no matching function for call...
+    //numbers2(numbers.begin(), numbers.end());        // ok, numbers2 has the same elements as numbers
+    vector<int> numbers3(numbers.begin(), --numbers.end());  // ok, numbers3 is { 1, 2, 3, 4 }
+    list<double> numbers4(++numbers.begin(), --numbers.end());        // ok, numbers4 is { 2, 3, 4 }
+    //forward_list<float> numbers5(numbers.begin(), numbers.end());   // ok, number5 is { 1, 2, 3, 4, 5 }
+    return 0;
+}
