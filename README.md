@@ -1,5 +1,11 @@
 # cEssence
 
+函数
+
+
+
+
+
 # point
 
 ```c++
@@ -8,9 +14,13 @@ int *p = nullPtr；
 p  = &value;
 ```
 
-1.  p是一个指针， 存储着变量value的地址；
+1.  
 
-2.  指针p的类型必须与变量value类型一致；
+2. 
+
+3. p是一个指针， 存储着变量value的地址；
+
+4. 指针p的类型必须与变量value类型一致；
 
    value: 10, value: 000000000062fe00
     p value: 10, p: 000000000062fe00
@@ -116,6 +126,20 @@ string (*g)(string a); *
 // of the specified types 
 
 int (*i)(int i, string s, double d);
+
+
+
+void (*f)()
+
+void *f()
+
+const int*;
+
+int *cont
+
+
+
+
 
 ## smartPoint
 
@@ -456,7 +480,42 @@ void text3()
 }
 ```
 
+# STL
 
+vector  可变大小，支持快速随机访问，在尾部之外插入或者删除比较慢
+
+deque  双端队列 支持快速随机访问 头尾插入删除快
+
+list  双向链表  支持双向顺序访问 在list任意位置插入删除速度快
+
+forward_list单向链表 单向访问   在list任意位置插入删除速度快
+
+array 固定数组 支持随机访问  不能添加或者删除元素
+
+string 与vector相似的容器  随机访问快 在尾部插入 删除速度快
+
+
+
+#### STL中算法分类
+
+- 操作对象 
+
+- - 直接改变容器的内容
+  - 将原容器的内容复制一份,修改其副本,然后传回该副本
+
+- 功能: 
+
+- - 非可变序列算法 指不直接修改其所操作的容器内容的算法
+
+  - - 计数算法     count、count_if
+    - 搜索算法     search、find、find_if、find_first_of、…
+    - 比较算法     equal、mismatch、lexicographical_compare
+
+  - 可变序列算法 指可以修改它们所操作的容器内容的算法
+
+  - - 删除算法     remove、remove_if、remove_copy、…
+    - 修改算法     for_each、transform
+    - 排序算法     sort、stable_sort、partial_sort、
 
 # 术语表
 

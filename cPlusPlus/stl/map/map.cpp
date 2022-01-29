@@ -7,6 +7,7 @@
 #include <string>
 #include <algorithm>
 #include "map.h"
+#include <set>
 
 using std::cout;
 using std::endl;
@@ -15,6 +16,7 @@ using std::map;
 using std::pair;
 using std::make_pair;
 using std::multimap;
+using std::set;
 /*1个key值可以对应多个value  =分组
 公司有销售部 sale （员工2名）、技术研发部 development （1人）、财务部 Financial （2人）
 人员信息有：姓名，年龄，电话、工资等组成
@@ -169,11 +171,57 @@ void _findInSalary(multimap<DEPARTMENT, staffInfo>*_info) {
 
 }
 
+struct frameIdSet{
+    int frameId;
+    float ness;
+
+    frameIdSet(int _frameId, float _ness) : frameId(_frameId), ness(_ness) {
+
+    }
+
+    bool operator<(const frameIdSet &_frameIdSet) const {
+        return ness <= _frameIdSet.ness;
+    }
+};
+void _map() {
+    /*map<int, float, std::greater<float>> p;
+    p.insert(std::make_pair(1, 2.0));
+    p.insert(std::make_pair(2, 7.0));
+    p.insert(std::make_pair(3, 0.0));
+    p.insert(std::make_pair(4, 9.0));
+    p.insert(std::make_pair(5, 1.0));
+    for(auto &_p : p) {
+        cout << _p.first << "|" << _p.second << endl;
+    }*/
+    map<float, int, std::less_equal<float>> p;
+    p.insert(std::make_pair(2.2, 1));
+    p.insert(std::make_pair(7.1, 2));
+    p.insert(std::make_pair(0.5, 3));
+    p.insert(std::make_pair(9.9, 4));
+    p.insert(std::make_pair(2.7, 5));
+    p.insert(std::make_pair(2.7, 6));
+    for(auto &_p : p) {
+        cout << _p.first << "|" << _p.second << endl;
+    }
+
+    set<frameIdSet> it;
+    it.insert(frameIdSet(1, 1.2));
+    it.insert(frameIdSet(2, 1.7));
+    it.insert(frameIdSet(3, 1.5));
+    it.insert(frameIdSet(4, 0.9));
+    it.insert(frameIdSet(5, 1.4));
+    it.insert(frameIdSet(5, 1.8));
+    it.insert(frameIdSet(6, 1.4));
+    for(auto &_it : it) {
+        cout << _it.frameId << "|" << _it.ness << endl;
+    }
+
+}
 int main() {
-    multimap<DEPARTMENT, staffInfo> sInfo;
+    /*multimap<DEPARTMENT, staffInfo> sInfo;
     _insert(&sInfo);
     _traverse(&sInfo);
-    _findInDepartment(&sInfo, DEVELOPMENT_DEPARTMENT);
+    _findInDepartment(&sInfo, DEVELOPMENT_DEPARTMENT);*/
     // find name
 
     // find age
@@ -186,5 +234,6 @@ int main() {
     _findInName();
     _findInSalary();
     _findInPhoneNum()*/
+    _map();
     return 0;
 }
