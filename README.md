@@ -1,6 +1,20 @@
+
+
+
+
 # cEssence
 
-# 内存分配
+# 编译过程
+
+
+
+<img src="C:\Users\24643\Pictures\c++编译过程.png" alt="c++编译过程" style="zoom:50%;" />
+
+
+
+
+
+# c++内存分配
 
 - 栈区：编译器自动分配和释放， 存放函数的参数值、局部变量等，操作方式类似于栈；
 
@@ -23,12 +37,12 @@ static int g_si1 = 1, g_si2 = 0, g_si3;
 int main() {
     static int s_i1 = 1, s_i2 = 0, s_i3;
     int i1 = 1, i2 = 0/*, i3 = 5*/;
-    char cStr[20] = "lyh";
-    char cStr1[10] = "lyh";
+    char cStr[20] = "word";
+    char cStr1[10] = "word";
     char cStr2[10];
     float f = 0.0;
     float f1;
-    char cStr3[10] = "lyh";
+    char cStr3[10] = "word";
     char cStr4[10];
     char*p;
     char*q = "hello world!";
@@ -91,9 +105,7 @@ int main() {
 }
 ```
 
-
-
-# point
+# 指针
 
 ```c++
 int value= 10；
@@ -101,13 +113,9 @@ int *p = nullPtr；
 p  = &value;
 ```
 
-1.  
+1. p是一个指针， 存储着变量value的地址；
 
-2. 
-
-3. p是一个指针， 存储着变量value的地址；
-
-4. 指针p的类型必须与变量value类型一致；
+2. 指针p的类型必须与变量value类型一致；
 
    value: 10, value: 000000000062fe00
     p value: 10, p: 000000000062fe00
@@ -224,11 +232,155 @@ const int*;
 
 int *cont
 
+# 数组
+
+## 一维数组
+
+```c++
+    int a1[10] = {1, 2, 3, 4, 5, 6, 7, 7};
+    int *p1 = &a1[0];
+    int *p2 = a1;
+	*(p1 + 1), (p2 + 1), a1[1]; // 三者等价，代表数组第二个元素，前两者为指针法，后者为下标法
+```
+
+## 二维数组
+
+```c++
+    int a2[][2]{
+            {1, 2},
+            {3, 4},
+            {5, 6},
+    };
+    int (*p3)[2] = a2;  // p3指向2个整型元素的一位数组， 指向二维数组的0行
+    a2[0], *(a2 + 0), *a2; // 0行0列元素地址
+    a2 + 1, &a2[1]; // 1行首地址
+    a2[1], *(a2 + 1); // 1行0列元素地址
+    a2[1] + 2, *(a2 + 1) + 2, &a2[1][2]; // 1行2列元素地址
+    *(a2[1] + 2), *(*(a2 + 1) + 2), a2[1][2]; // 1行2列元素值
+```
+
+### 二维数组作为函数形参
+
+```c++
+printfArray(a2); 	
+printfArray((int *) a2);	// a2被拉伸为以为数组
+printfArray((int **) a2);
+printfArray1(a2);
+// 编译器寻址规则， 先拿到数组p的地址，
+// 在拿到寻址的行偏移量 p + i*列长度
+// 再拿到寻址的列偏移量 p + i*列长度 + j
+int printfArray(int array[][2]) {
+    printf("%d \n", array[0][1]);
+    return 0;
+}
+
+int printfArray(int **p) { // p转化为int *, 拿到步长
+    printf("%d \n", *((int*)p + 2 * 0 + 0));
+    printf("%d \n", *((int*)p) + 2 * 1 + 0);
+    printf("%d \n", *((int*)p) + 2 * 2 + 0);
+    return 0;
+}
+
+int printfArray(int *p) {
+    printf("%d \n", *(p + 1));
+    return 0;
+}
+
+int printfArray1(int (*p)[2]) {
+    printf("%d \n", *(*(p + 0) + 1));
+    return 0;
+}
+```
+
+# 函数指针
+
+在程序中定义一个函数，在编译的时候 编译系统为函数代码分配一段存储空间，被称为存储空间的起始地址（入口地址），也被称为函数的指针；
+
+类型名 （* 指针变量名）（函数参数表列）
+
+```c++
+int (*p)(int, int); // p是一个指向函数的指针变量，它可以指向函数的类型为整型且有两个整型参数的函数
+					// p 的类型用int(*)(int, int)表示， p先和*结合 指针变量 在和()结合表示一个函					// 数，该指针变量不是指向一般的变量，而是指向函数
+p = max(a, b); 		// 把max函数返回值返回给p
+p = max;			// 把max函数的入口地址返回给p
+c = (*P)(a, b);		// 调用p指向的函数
+```
+
+# 返回指针值的函数
+
+类型名 *函数名（参数表列）
+
+```c++
+int *a(int x, int y);  // a函数名字 调用a可以返回一个int*型（指向整型数据）的指针，得到整型数据的						//地址
+```
+
+# 指针数组和多重指针
+
+一个数组，其元素都为指针型的数据 指针数组，也就是指针数组的每一个元素都存放的一个地址。相当于一个指针变量；
+
+```c++
+int *p[4];  // []优先级比*高  p先和[4]结合形成 p[4]形式，表示数组有4个元素，
+			// 在和*结合，表示数组式指针类型的，每个数组元素（相当于一个指针变量）都可以指向一个整型			  // 变量
+int (*p)[4] // 指向一维数组的指针变量
+```
+
+```c++
+int main() {
+    char *name[] = {"follow me", "great wall", "hello world"}; // 指针数组的元素存放的地址，不能存放值；
+    char **p;
+    print(name, 3);
+
+    for (int i = 0; i < 3; ++i) {
+        p = name + i;
+        printf("%s \n", *p);
+    }
+
+    return 0;
+}
+
+void print(char *name[], int n) {
+    for (int i = 0; i < n; ++i) {
+        printf("%s \n", name[i]);
+    }
+}
+```
+
+## 多维指针
+
+<img src="C:\Users\24643\Pictures\指针.png"  />
+
+
+
+# 指针和结构体
+
+```c++
+struct student *ptr;
+strncpy(student.name, "hello world!", 10 * sizeof(char));
+student.age = 10;
+studentPtr = &student;
+
+studentPtr->name, student.name;
+(*studentPtr).age, student.age;  // (*studentPtr).age 和 studentPtr->age等价
+
+//ptr = student.name; // error ptr是指向结构体类型的指针， 不加转化，ptr的地址类型不匹配
+ptr = (struct student *)student.name;
+```
+
+## 结构体变量和结构体变量的指针作为函数参数三种方式
+
+1.结构体的变量成员作为参数，类似于值传递；
+
+2.结构体变量作为实参，将结构体变量所占的内存单元内存全部按顺序传递给形参，函数调用期间形参也要占用内容，会有内存开销
+
+类似于值传递，如果在执行期间改变了形参，实参不会因此改变；
+
+3.用指向结构体的变量的指针作为实参，将结构体的地址传给形参；
+
+# 智能指针
 
 
 
 
-## smartPoint
 
 # 重载运算符和重载函数
 
@@ -282,21 +434,6 @@ int *cont
 | **`delete`** | 删除                   | —      |
 | **`new`**    | 新出现                 | —      |
 | 转换运算符   | 转换运算符             | 一元   |
-
-1 存在两个版本的一元增量和减量运算符：预递增和后递增。
-
-有关详细信息 [，请参阅运算符重载的](https://docs.microsoft.com/zh-cn/cpp/cpp/general-rules-for-operator-overloading?view=msvc-170) 常规规则。 以下主题对各种类别的重载运算符的约束进行了介绍：
-
-- [一元运算符](https://docs.microsoft.com/zh-cn/cpp/cpp/overloading-unary-operators?view=msvc-170)
-- [二元运算符](https://docs.microsoft.com/zh-cn/cpp/cpp/binary-operators?view=msvc-170)
-- [分配](https://docs.microsoft.com/zh-cn/cpp/cpp/assignment?view=msvc-170)
-- [函数调用](https://docs.microsoft.com/zh-cn/cpp/cpp/function-call-cpp?view=msvc-170)
-- [下标](https://docs.microsoft.com/zh-cn/cpp/cpp/subscripting?view=msvc-170)
-- [类成员访问](https://docs.microsoft.com/zh-cn/cpp/cpp/member-access?view=msvc-170)
-- [递增和减量](https://docs.microsoft.com/zh-cn/cpp/cpp/increment-and-decrement-operator-overloading-cpp?view=msvc-170)。
-- [用户定义类型转换](https://docs.microsoft.com/zh-cn/cpp/cpp/user-defined-type-conversions-cpp?view=msvc-170)
-
-无法重载下表中显示的运算符。 该表包括预处理器符号 **#** 和 **##** 。
 
 ## 不可重定义的运算符
 
@@ -585,24 +722,39 @@ string 与vector相似的容器  随机访问快 在尾部插入 删除速度快
 
 #### STL中算法分类
 
-- 操作对象 
+操作对象 
 
-- - 直接改变容器的内容
-  - 将原容器的内容复制一份,修改其副本,然后传回该副本
+直接改变容器的内容
 
-- 功能: 
+将原容器的内容复制一份,修改其副本,然后传回该副本
 
-- - 非可变序列算法 指不直接修改其所操作的容器内容的算法
+功能: 
 
-  - - 计数算法     count、count_if
-    - 搜索算法     search、find、find_if、find_first_of、…
-    - 比较算法     equal、mismatch、lexicographical_compare
+非可变序列算法 指不直接修改其所操作的容器内容的算法
 
-  - 可变序列算法 指可以修改它们所操作的容器内容的算法
+计数算法     count、count_if
 
-  - - 删除算法     remove、remove_if、remove_copy、…
-    - 修改算法     for_each、transform
-    - 排序算法     sort、stable_sort、partial_sort、
+搜索算法     search、find、find_if、find_first_of、…
+
+比较算法     equal、mismatch、lexicographical_compare
+
+可变序列算法 指可以修改它们所操作的容器内容的算法
+
+删除算法     remove、remove_if、remove_copy、…
+
+修改算法     for_each、transform
+
+排序算法     sort、stable_sort、partial_sort、
+
+# **ASCII**
+
+<img src="C:\Users\24643\AppData\Roaming\Typora\typora-user-images\image-20220226001153775.png" alt="image-20220226001153775" style="zoom: 50%;" />
+
+![ascll](D:\lyh\opengrok\source\cEssence\c\data\image\ascll.png)
+
+# 运算符和结合性
+
+<img src="C:\Users\24643\AppData\Roaming\Typora\typora-user-images\image-20220226000939210.png" alt="image-20220226000939210" style="zoom: 80%;" />
 
 # 术语表
 

@@ -89,6 +89,7 @@ dkms.conf
 ### CMake template
 CMakeLists.txt.user
 CMakeCache.txt
+CMakeLists.txt
 CMakeFiles
 CMakeScripts
 Testing
