@@ -7,7 +7,7 @@
 #include <iostream>
 
 
-int main() {
+int main1() {
     char *name[] = {"follow me", "great wall", "hello world"};
     char **p;
     print(name, 3);
@@ -24,4 +24,10 @@ void print(char *name[], int n) {
     for (int i = 0; i < n; ++i) {
         printf("%s \n", name[i]);
     }
+}
+
+
+int main() {
+
+    return 0;
 }

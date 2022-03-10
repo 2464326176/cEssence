@@ -12,7 +12,7 @@ static int g_si1 = 1, g_si2 = 0, g_si3;
 
 int main() {
     static int s_i1 = 1, s_i2 = 0, s_i3;
-    int i1 = 1, i2 = 0/*, i3 = 5*/;
+    int i1 = 1, i2 = 0, i3;
     char cStr[20] = "lyh";
     char cStr1[10] = "lyh";
     char cStr2[10];
@@ -20,18 +20,17 @@ int main() {
     float f1;
     char cStr3[10] = "lyh";
     char cStr4[10];
-    char*p;
+    char*p = (char *)malloc(64);
     char*q = "hello world!";
-    p = (char *)malloc(64);
     strncpy(p, "hello world!", sizeof(p));
 
     /* stack area */
     printf("stack addr start:                       \n");
     printf("local intern init i1:                   %p, %d\n", &i1, &i1);
-    /*printf("local intern init i2:                   %p, %d\n", &i2, &i2);
+    printf("local intern init i2:                   %p, %d\n", &i2, &i2);
     printf("local intern not init i3:               %p, %d\n", &i3, &i3);
     printf("local intern not init i3 end:           %p, %d\n", size_t(&i3) - sizeof(i3), size_t(&i3) - sizeof(i3));
-*/
+
     /* string area*/
     printf("string addr start:                      %p, %d\n", (size_t)cStr + sizeof(cStr), (size_t)cStr + sizeof(cStr));
     printf("cStr:                                   %p, %d\n", &cStr, &cStr);
@@ -79,3 +78,16 @@ int main() {
     free(p);
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

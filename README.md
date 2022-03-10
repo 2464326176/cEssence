@@ -1,18 +1,114 @@
-
-
-
+---
+typora-copy-images-to: cPlusPlus\data\image
+---
 
 # cEssence
 
 # 编译过程
 
-
-
-<img src="C:\Users\24643\Pictures\c++编译过程.png" alt="c++编译过程" style="zoom:50%;" />
-
+<img src="D:/lyh/opengrok/source/cEssence/cPlusPlus/data/image/c++%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B.png" alt="c++编译过程" style="zoom:50%;" />
 
 
 
+# 数据类型
+
+| char           | 1 字节      | -128 到 127 或 0 到 255                              |
+| -------------- | ----------- | ---------------------------------------------------- |
+| unsigned char  | 1 字节      | 0 到 255                                             |
+| signed char    | 1 字节      | -128 到 127                                          |
+| int            | 2 或 4 字节 | -32,768 到 32,767 或 -2,147,483,648 到 2,147,483,647 |
+| unsigned int   | 2 或 4 字节 | 0 到 65,535 或 0 到 4,294,967,295                    |
+| short          | 2 字节      | -32,768 到 32,767                                    |
+| unsigned short | 2 字节      | 0 到 65,535                                          |
+| long           | 4 字节      | -2,147,483,648 到 2,147,483,647                      |
+| unsigned long  | 4 字节      | 0 到 4,294,967,295                                   |
+| loat           | 4 字节      | 1.2E-38 到 3.4E+38                                   |
+| double         | 8 字节      | 2.3E-308 到 1.7E+308                                 |
+| long double    | 16 字节     | 3.4E-4932 到 1.1E+4932                               |
+
+数据类型是固定内存大小的别名，编译器在编译阶段确定分配内存空间的大小；
+
+## sizeof和strlen
+
+# const和define
+
+```c++
+const int a = 0; // a不能被修改
+int const b = 0; // b不能被修改
+
+//指针指向的对象声明为const或volatile
+const char *cpch; // 修饰符修饰的指针指向的对象 不能被修改
+volatile char *vpch;
+// 指针的值（即指针中存储的实际地址）声明为const或volatile
+char *const pchc = nullptr; // 修饰符修饰的指针的值 不能被修改
+char *volatile pchv;
+
+// 在c语言中const修饰的变量，可以通过间接赋值方式被修改
+const int value = 10;
+int *p = const_cast<int *>(&value);
+*p = 6;
+
+const char cch = 'A'; // cch的值不能被修改
+char ch = 'B';
+
+const char *pch1 = &cch;
+//char *pch2 = &cch;   // Error
+//char *const pch3 = &cch;   // Error
+const char *const pch4 = &cch;
+
+//*pch1 = 'A';  // Error: object declared const
+pch1 = &ch;   // OK: pointer not declared const
+char *pch2 = "aaa";  // OK: normal pointer
+pch2 = &ch;   // OK: normal pointer
+char *const pch3 = "bbb";  // OK: object not declared const
+//pch3 = &ch;   // Error: pointer declared const
+//*pch4 = "cccc";  // Error: object declared const
+//pch4 = &ch;   // Error: pointer declared const
+
+const char *pch5 = &ch;
+char *pch6 = &ch;
+char *const pch7 = &ch;
+const char *const pch8 = &ch;
+```
+
+**`const`**可以将给定类型的指针分配给同一类型的指针。 但是，不能将非 **`const`** 的指针分配给 **`const`** 指针。 以下代码显示了正确和错误的赋值：
+
+```cpp
+int *const cpObject = 0;
+int *pObject;
+
+int main() {
+pObject = cpObject;
+cpObject = pObject;   // C3892
+}
+```
+
+以下示例显示了当有指针指向某个指向对象的指针时如何将对象声明为 const。
+
+```c++
+struct X {
+   X(int i) : m_i(i) { }
+   int m_i;
+};
+
+int main() {
+   const X cx(10);
+   const X * pcx = &cx;
+   const X ** ppcx = &pcx;
+
+   X const cx2(20);
+   X const * pcx2 = &cx2;
+   X const ** ppcx2 = &pcx2;
+}
+```
+
+## 变量和常量
+
+变量：能读又能写的内存对象；
+
+变量三要素：名称、大小、作用域；
+
+常量：一旦初始化后不能修改的对象；
 
 # c++内存分配
 
@@ -29,6 +125,8 @@
 - 常量段：常量字符串，程序结束后由操作系统来释放；
 
 - 程序代码区：存放函数体的二进制代码；
+
+    ![内存四区](D:/lyh/opengrok/source/cEssence/cPlusPlus/data/image/%E5%86%85%E5%AD%98%E5%9B%9B%E5%8C%BA.png)
 
 ```c++
 int g_i1 = 1, g_i2 = 0, g_i3;
@@ -107,106 +205,253 @@ int main() {
 
 # 指针
 
+## 指针变量归纳
+
 ```c++
-int value= 10；
-int *p = nullPtr；
-p  = &value;
+int value= 10; // value: 10, &value: 000000000062fe00
+int *p = nullPtr; // p是指向int类型的指针变量 空间为4个字节
+p = &value; // *p: 10, p: 000000000062fe00
+int a[10]; // a是一个数组 其中有10个元素
+p = a; // a是一个int数组类型 p指向a的首元素
 ```
 
 1. p是一个指针， 存储着变量value的地址；
 
-2. 指针p的类型必须与变量value类型一致；
+2. 指针p的类型必须与变量value类型一致；int value和int *p；
 
-   value: 10, value: 000000000062fe00
-    p value: 10, p: 000000000062fe00
+3. 指针就是地址，出现指针的地方都可以用地址代替，变量的指针就是变量的地址，指针变量就是地址变量
 
-   变量value值为10， 地址为000000000062fe00
+    指针和指针变量：
 
-C++ 指针指向的对象声明为const或volatile
+    指针就是地址本身，value的地址为62fe00，62fe00就是变量的指针；
 
-```c++
-const char *cpch;
-volatile char *vpch;
-```
+    指针变量用来存放地址的变量，指针变量的值是一个地址；
 
-C++ 指针的值（即指针中存储的实际地址）声明为const或volatile
+4. 指向：通过地址能找到具有该地址的对象，对于指针变量来说，把谁的地址存放在指针变量中，就说该指针指向谁；
 
-```cpp
-char * const pchc;
-char * volatile pchv;
-```
+| 变量定义     | 类型表示   | 含义                                                         |
+| ------------ | ---------- | ------------------------------------------------------------ |
+| int i；      | int        | 整型变量                                                     |
+| int *p;      | int *      | 定义p为指向整型数据的指针变量                                |
+| int a[10];   | int [10]   | 定义为整型数组a，有10个变量                                  |
+| int *p[4];   | int *[4]   | 定义为指针数组p, 有4个指向整型数据的指针元素组成             |
+| int (*P)[4]; | int (*)[4] | p指向包含4个元素的一维数组的指针变量                         |
+| int f();     | int ()     | f为返回整型函数值的函数                                      |
+| int *p();    | int *()    | p为返回一个指针的函数 指针指向整型数据                       |
+| int  (*p)()  | int (*)()  | p为指向函数的指针  函数返回一个整数值                        |
+| int **p;     | int **     | p是一个指针变量 指向一个指向整型数据的指针变量               |
+| void *p;     | void *     | p是一个指针变量 该类型为void类型（空类型），不指向具体的对象 |
 
-C++ 语言阻止允许修改声明为 的对象或指针的分配 **`const`** 。
+### 1：指针是一种数据类型   
 
-```cpp
-const char cch = 'A';
-char ch = 'B';
-```
-
-鉴于上述两个对象的声明 (类型为 `cch cch`和 的类型 `ch ch`) ，以下声明/初始化有效：
-
-```cpp
-const char *pch1 = &cch;
-const char *const pch4 = &cch;
-const char *pch5 = &ch;
-char *pch6 = &ch;
-char *const pch7 = &ch;
-const char *const pch8 = &ch;
-```
-
-以下声明/初始化存在错误。
-
-```cpp
-char *pch2 = &cch;   // Error
-char *const pch3 = &cch;   // Error
-```
+1）指针也是一种变量，占有内存空间，用来保存内存地址
 
 ```c++
-*pch1 = 'A';  // Error: object declared const
-pch1 = &ch;   // OK: pointer not declared const
-*pch2 = 'A';  // OK: normal pointer
-pch2 = &ch;   // OK: normal pointer
-*pch3 = 'A';  // OK: object not declared const
-pch3 = &ch;   // Error: pointer declared const
-*pch4 = 'A';  // Error: object declared const
-pch4 = &ch;   // Error: pointer declared const
+    int _int;
+    char _char;
+    char _str[20];
+    int _intArray[20];
+    char *pStr;
+    int *pInt;
+    int **pInt1;
+    int ******pInt2;
+
+    printf("sizeof(int))        %d\n", sizeof(int));      //sizeof(int))        4
+    printf("sizeof(_int))       %d\n", sizeof(_int));     //sizeof(_int))       4
+    printf("sizeof(char))       %d\n", sizeof(char));     //sizeof(char))       1
+    printf("sizeof(_char))      %d\n", sizeof(_char));    //sizeof(_char))      1
+    printf("sizeof(_str))       %d\n", sizeof(_str));     //sizeof(_str))       20
+    printf("sizeof(_intArray))  %d\n", sizeof(_intArray));//sizeof(_intArray))  80
+    printf("sizeof(char *))     %d\n", sizeof(char *));   //sizeof(char *))     8
+    printf("sizeof(pStr))       %d\n", sizeof(pStr));     //sizeof(pStr))       8
+    printf("sizeof(int *))      %d\n", sizeof(int *));    //sizeof(int *))      8
+    printf("sizeof(pInt))       %d\n", sizeof(pInt));     //sizeof(pInt))       8
+    printf("sizeof(pInt1))      %d\n", sizeof(pInt1));    //sizeof(pInt1))      8
+    printf("sizeof(pInt2))      %d\n", sizeof(pInt2));    //sizeof(pInt2))      8
 ```
 
-**`const`**可以将给定类型的指针分配给同一类型的指针。 但是，不能将非 **`const`** 的指针分配给 **`const`** 指针。 以下代码显示了正确和错误的赋值：
+2）*p操作内存
 
-```cpp
-// const_pointer.cpp
-int *const cpObject = 0;
-int *pObject;
+```C++
+    int a = 5;
+    int b = 7;
+    int* pInt = nullptr;
+    int* pInt1 = nullptr;
+    pInt = &a;
+    pInt1 = &b;
+    a = *pInt1; //从内存获取值
+    *pInt = 8; 	// 给内存赋值
 
-int main() {
-pObject = cpObject;
-cpObject = pObject;   // C3892
+    printf("%d %d %d\n", a, *pInt, *pInt1); // 8 8 7
+    printf("%d %d %d\n", &a, pInt, pInt1);  // 6422028 6422028 6422024
+```
+
+- 在指针声明时，*号表示所声明的变量为指针
+- 在指针使用时，*号表示操作指针所指向的内存空间中的值
+- *p相当于通过地址(p变量的值)找到一块内存, 然后操作内存
+- *p放在等号的左边赋值（给内存赋值）
+- *p放在等号的右边取值（从内存获取值）
+
+3）指针变量和它指向的内存块是两个不同的概念
+
+- 给p赋值p=0x1111; 只会改变指针变量值，不会改变所指的内容；p = p +1; //p++
+-  给*p赋值* p='a'; 不会改变指针变量的值，只会改变所指的内存块的值 
+- =左边*p 表示 给内存赋值， =右边*p 表示取值 含义不同切结！
+- 保证所指的内存块能修改
+
+4）指针是一种数据类型，是指它指向的内存空间的数据类型 
+
+​	指针步长（p++), 根据所致内存空间的数据类型来确定
+
+```c++
+p++ = (unsigned char )p + sizeof(a);
+```
+
+结论：指针的步长，根据所指内存空间类型来定。
+
+注意:  建立指针指向谁，就把把谁的地址赋值给指针。图和代码和二为一。     
+
+​          不断的给指针变量赋值，就是不断的改变指针变量（和所指向内存空间没有任何关系）。
+
+### 2：间接赋值是指针存在的最大意义
+
+1）两码事：指针变量和它指向的内存块变量
+
+2）条件反射：指针指向某个变量，就是把某个变量地址否给指针
+
+3）*p间接赋值成立条件：3个条件 
+
+- 2个变量（通常一个实参，一个形参）
+- 建立关系，实参取地址赋给形参指针 
+- *p形参去间接修改实参的值 
+
+```c++
+int iNum = 0; //实参
+int *pNum = NULL;
+pNum = &iNum;
+iNum = 1; 	// 直接修改
+*pNum =2 ; 	//通过*形参 == 间接地改变实参的值
+```
+
+**4）**引申： 函数调用时,用n指针（形参）改变n-1指针（实参）的值。
+
+//改变0级指针（int iNum = 1）的值有2种方式
+
+//改变1级指针（eg char *p = 0x1111 ）的值，有2种方式
+
+//改变2级指针的（eg char **pp1 = 0x1111 ）的值，有2种方式
+
+//函数调用时，形参传给实参，用实参取地址，传给形参，在被调用函数里面用*p，来改变实参，把运算结果传出来。
+
+//指针作为函数参数的精髓。
+
+### 3：理解指针必须和内存四区概念相结合 
+
+1）主调函数 被调函数 
+
+-  主调函数可把堆区、栈区、全局数据内存地址传给被调用函数
+-  被调用函数只能返回堆区、全局数据
+
+2）内存分配方式
+
+- 指针做函数参数，是有输入和输出特性的。
+- 指针做输出：被调用函数分配内存
+    指针做输入：主调用函数 分配内存
+
+### 4：应用指针必须和函数调用相结合
+
+指针做函数参数，问题的实质不是指针，而是看内存块，内存块是1维、2维。
+
+1）如果基础类int变量，不需要用指针；
+
+2）若内存块是1维、2维。
+
+### 5：一级指针做函数参数
+
+```c++
+// function interface
+void asInput(char *input);
+void asInput(char *input, int num); //一级指针做输入
+void asOutput(char *input, char *output); // 一级指针做输出
+```
+
+- 主调函数还是被调用函数分配内存
+
+- 被调用函数是在heap/stack上分配内存
+
+### 6：二级指针做函数参数
+
+```c++
+/*内存模型*/
+//1. 指针数组
+char *p1[] = {"hello", "world", "!!!"};
+
+//2. 二维数组
+char p2[3][7] = {"hello", "world", "!!!"};
+
+//3. 二维堆内存 申请
+char **p3 = (char **) malloc(3 * sizeof(char *)); //int array[3];
+for (int i = 0; i < 3; i++) {
+    p3[i] = (char *) malloc(10 * sizeof(char)); //char buf[10]
 }
-```
 
-以下示例显示了当有指针指向某个指向对象的指针时如何将对象声明为 const。
-
-```cpp
-struct X {
-   X(int i) : m_i(i) { }
-   int m_i;
-};
-
-int main() {
-   // correct
-   const X cx(10);
-   const X * pcx = &cx;
-   const X ** ppcx = &pcx;
-
-   // also correct
-   X const cx2(20);
-   X const * pcx2 = &cx2;
-   X const ** ppcx2 = &pcx2;
+// 释放内存
+for (int i = 0; i < 3; i++) {
+    free(p3[i]);
+    p3[i] = nullptr;
 }
+free(p3);
+p3 = nullptr;
+// function interface
+Int freeMemory(void **data); // 二级指针做输入 避免野指针
+int main(int argc ,char *argv[]); // 二级指针做输入
+int shouMatrix(int [3][4], int iLine); // 二级指针做输入
+getMem(char **p1, int *len1, char **p2, int *len2) //二级指针做输出
 ```
 
-## 函数指针和指针函数
+- 主调函数还是被调用函数分配内存
+
+- 被调用函数是在heap/stack上分配内存
+
+
+### 7： 三级指针输出典型用法
+
+三级指针做输出
+
+int getFileAllLine(char ***content, int *pLine); 
+
+int getFileAllLine_Free(char ***content, int *pLine);
+
+- 主调函数还是被调用函数分配内存
+
+- 被调用函数是在heap/stack上分配内存
+
+
+### 8：杂项，指针用法几点扩充
+
+1）野指针 2种free形式
+
+int getData(char **data, int *dataLen); 
+
+int getData_Free(void *data);
+
+int getData_Free2(void **data);
+
+2）2次调用
+
+主调函数第一次调用被调用函数求长度；根据长度，分配内存，调用被调用函数。
+
+3）返回值char */int/char **
+
+4）C程序书写结构
+
+商业软件，每一个出错的地方都要有日志，日志级别
+
+### 9：一般应用禁用malloc/new
+
+
+
+### 函数指针和指针函数
 
 // Declare pointer to any function that... 
 
@@ -232,7 +477,21 @@ const int*;
 
 int *cont
 
-# 数组
+# 指针和数组
+
+## 数组概念
+
+- 元素类型来看：数组是相同类型的变量的有序集合；
+
+- 内存角度：联系的一大片内存空间；
+
+    ```c++
+    int array[200] = {0}; //编译的时间 确定所有的值为0
+    memset(c, 0, sizeof(c)); //显示的 重置内存块
+    //C规定一维数组
+    //array是数组首元素的地址 c+1 步长 4个字节
+    //&array 是整个数组的地址 //&c+1 步长 200*4 
+    ```
 
 ## 一维数组
 
@@ -292,6 +551,53 @@ int printfArray1(int (*p)[2]) {
 }
 ```
 
+## 多维数组刨析
+
+```c++
+// 一维数组刨析
+char a[10];
+printfArray(a, num);
+void printfArray(char a[10], size_t num);
+void printfArray(char a[], size_t num);
+void printfArray(char *a, size_t num);
+// 一维数组作为函数的实参，传入函数a[10]，C语言在处理a[10]的时候，并不会把所有的元素copy一次
+// 只会把数组的首元素的地址拿过来 a=>&a[0], 这是c语言高效的地方；
+
+// 二维数组刨析
+char a[3][10];
+printfArray(a, num);
+void printfArray(char a[3][10], size_t num);
+void printfArray(char a[][10], size_t num);
+void printfArray(char **a, size_t num);
+// 二维数组在内存中也是线性排布的，类似于一维数组，唯一不同的地方 一维数组的a 和二维数组的a步长不一样；
+// 在二维数组也存在数组退化为指针的形式
+void func(char a[10])->void func(char a[])->void func(char *a);
+void func(char char a[3][10])->void func(char a[][10])->void func(char (*a)[10]);
+void func(char char *a[10])->void func(char **a);
+```
+
+# 数组指针
+
+```c++
+int a[4]; // a有4个元素， 每个元素都是整型
+int a[4][4]; // 二维数组
+int (*p)[4]; // (*p)有4个元素，每个元素都为整型，p所指的对象有4个整型元素的数组，p是指向一维数组的			  // 指针，p只能指向一个包含4个元素的一位数组，不能指向一维数组中的某一个元素；p的值就是			 // 该一维数组的起始地址
+```
+
+二维数组元素是整型的，相当于整型变量，可以用int *来指向它，二维数组的元素在内存中是线性的，按行顺序存放的，一行一行地存放元素，可以使用一个指向整型元素的指针变量，依次指向各个元素；
+
+```c++
+int a[][4] = {1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23};
+int *p;
+for(p = a[0];  p < a[0] + 12; ++p ) {
+    if((p - a[0])%4 == 0) {
+        printf("\n");
+    }
+    printf("%d ", *p);
+}
+printf("\n");
+```
+
 # 函数指针
 
 在程序中定义一个函数，在编译的时候 编译系统为函数代码分配一段存储空间，被称为存储空间的起始地址（入口地址），也被称为函数的指针；
@@ -311,10 +617,12 @@ c = (*P)(a, b);		// 调用p指向的函数
 类型名 *函数名（参数表列）
 
 ```c++
-int *a(int x, int y);  // a函数名字 调用a可以返回一个int*型（指向整型数据）的指针，得到整型数据的						//地址
+int *a(int x, int y);  // a函数名字 调用a可以返回一个int*型（指向整型数据）的指针，得到整型数据的地址
 ```
 
-# 指针数组和多重指针
+
+
+# 指针数组
 
 一个数组，其元素都为指针型的数据 指针数组，也就是指针数组的每一个元素都存放的一个地址。相当于一个指针变量；
 
@@ -325,29 +633,31 @@ int (*p)[4] // 指向一维数组的指针变量
 ```
 
 ```c++
-int main() {
-    char *name[] = {"follow me", "great wall", "hello world"}; // 指针数组的元素存放的地址，不能存放值；
-    char **p;
-    print(name, 3);
+int a[][4] = {1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23};
+int *p;
+int (*pArray)[4];
 
-    for (int i = 0; i < 3; ++i) {
-        p = name + i;
-        printf("%s \n", *p);
+for(p = a[0];  p < a[0] + 12; ++p ) {
+    if((p - a[0])%4 == 0) {
+        printf("\n");
     }
-
-    return 0;
+    printf("%d ", *p);
 }
+printf("\n");
 
-void print(char *name[], int n) {
-    for (int i = 0; i < n; ++i) {
-        printf("%s \n", name[i]);
+pArray = a;
+
+for(int i = 0; i < 3; ++i) {
+    for(int j = 0; j < 4; ++j) {
+        printf("%d ", *(*(pArray + i) + j));
     }
+    printf("\n");
 }
 ```
 
-## 多维指针
+# 多重指针
 
-<img src="C:\Users\24643\Pictures\指针.png"  />
+![](D:/lyh/opengrok/source/cEssence/cPlusPlus/data/image/%E6%8C%87%E9%92%88.png)
 
 
 
@@ -378,9 +688,7 @@ ptr = (struct student *)student.name;
 
 # 智能指针
 
-
-
-
+# 指针总结
 
 # 重载运算符和重载函数
 
@@ -704,6 +1012,62 @@ void text3()
 }
 ```
 
+# 面向对象
+
+面向对象必须提供对象、类和继承；对于一个空类，编译器默认产生4个成员函数：默认构造函数、默认析构函数、默认拷贝构造函数、默认赋值函数。
+
+静态成员变量在同一个类中的所有实例间共享数据，如果想限制对静态成员变量的访问，必须把他们声明为保护型和私有型的，不允许用静态成员变量去存放某一个对象的数据；
+
+析构函数可以为virtual型的，构造函数却不能，虚函数采用一种虚调用的方法，虚调用是一种可以在只有部分信息的情况下工作的机制，特别允许我们调用一个只知道接口而不知道其准确的对象类型的函数。但是如果要创建一个对象，必须要知道对象准确的类型，因此构造函数不能为虚函数；
+
+每个虚函数的对象必须维护一个virtual table，因此在使用虚函数的时候会产生一个系统的开销；如果仅是很小的类，且不需要派生类（子类），不需要虚函数；每个对象的虚表指针指向虚表，虚表存放虚函数的地址；虚函数表是顺序存放虚函数地址的，不需要用到链表；
+
+```C++
+myClass(): data(i); // 带参数的构造函数， 冒号后面是成员变量初始化列表（member 			   					   // initializationlist）
+```
+
+
+
+## 继承和接口
+
+### virtual
+
+virtual 告诉编译器不应当完成早绑定，相反应当自动安装完成晚绑定所必需的所有的机制，编译器对每个包含虚函数的类创建一个表（vtable），编译器放置特定类的虚函数地址，每个带虚函数的类中，编译器秘密的设置一指针，成为vpointer（vptr），指向这个对象的vtable，通过基类指针作虚函数调用时（多态调用时），编译器静态地插入取得这个vptr，并且在vtable表中查找这个函数地址的代码，这样就能调用正确的函数使晚绑定发生；
+
+<img src="D:/lyh/opengrok/source/cEssence/cPlusPlus/data/image/virtualTable.png"  />
+
+虚指针或者虚函数指针式一个虚函数的实现细节，带有虚函数的类的每一个对象都有一个虚函数指针指向该类的虚函数表；
+
+每个虚函数都在vtable中占了一个表项，保存着一条跳转到它的入口地址的指令（实际上式保存了他的入口地址），当一个包含虚函数的对象（不是对象的指针）被创建的时候，它在头部附加了一个指针，指向vtable中的相应位置，调用虚函数的时候，不管你是用什么指针调用的，它先根据vtable找到入口地址在执行，从而实现动态联编，而不像普通函数那样简单地跳转到一个固定的地址；
+
+# c++额外开销
+
+## 编译时开销
+
+模板、类层次结构、强类型检查等新特性，以及使用这些新特征的c++模板、算法库都在明显增加c++编译器的负担；
+
+## 运行时开销
+
+### 虚基类
+
+从直接虚继承的子类中访问虚基类的数据成员或其虚函数，将增加两次指针引用（大部分情况下可以优化为一次）和一次整型加法的时间开销。定义一个虚基类表，定义若干虚基类表指针的空间开销；
+
+### 虚函数
+
+虚函数的运行开销有进行整型加法和指针引用的时间开销。定义一个虚表，定义若干个（大部分情况下是一个）虚表指针的空间开销；
+
+### RTTI(dynamic_cast和typeid)
+
+RTTI,runtime type information，运行时开销主要在进行整型比较和取址操作所增加的开销，定义一个type_info对象（包括类型ID和类名称）的空间开销。“dynamic_cast”用在类层次结构中漫游，对指针或者引用进行自由的向上、向下或者交叉转化。“typeid”则用于获取一个对象或者引用的准切类型。一般来说能使用虚函数解决不要使用dynamic_type, 能使用dynamic_type就不要使用typeid；
+
+### 异常
+
+在正常的情况下，try块的代码执行效率和普通的一样快，而且不需要使用传统上通过的返回值或者函数调用来判断错误的方式，代码的执行效率还会进一步提升，抛出和捕获异常的开销也只是在少数情况下会高于函数返回和函数调用的开销；
+
+### 对象的构造和析构
+
+不需要构造和析构的类型，没有很大的开销；对于那些需要初始化销毁的类型，有部分的开销；
+
 # STL
 
 vector  可变大小，支持快速随机访问，在尾部之外插入或者删除比较慢
@@ -717,8 +1081,6 @@ forward_list单向链表 单向访问   在list任意位置插入删除速度快
 array 固定数组 支持随机访问  不能添加或者删除元素
 
 string 与vector相似的容器  随机访问快 在尾部插入 删除速度快
-
-
 
 #### STL中算法分类
 
@@ -755,6 +1117,10 @@ string 与vector相似的容器  随机访问快 在尾部插入 删除速度快
 # 运算符和结合性
 
 <img src="C:\Users\24643\AppData\Roaming\Typora\typora-user-images\image-20220226000939210.png" alt="image-20220226000939210" style="zoom: 80%;" />
+
+# c函数表
+
+
 
 # 术语表
 

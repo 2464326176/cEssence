@@ -7,21 +7,23 @@
 #include <iostream>
 #include <cstring>
 
-struct student {
+typedef struct Student {
     char name[10];
     int age;
-} student, *studentPtr;
+    Student(char *name, int age) {
+        strncpy(this->name, name, 10 * sizeof(char));
+        this->age = age;
+    }
+};
 
 
 int main() {
-    struct student *ptr;
-    strncpy(student.name, "hello world!", 10 * sizeof(char));
+    Student student("hello world!!"), *studentPtr;
+    Student *ptr;
     student.age = 10;
     studentPtr = &student;
 
-    studentPtr->name, student.name;
-    (*studentPtr).age, student.age;  // (*studentPtr).age 和 studentPtr->age等价
-
+    printf("%s %s %s", student.name, (*studentPtr).name, studentPtr->name); // (*studentPtr).age 和 studentPtr->age等价
     //ptr = student.name; // error ptr是指向结构体类型的指针， 不加转化，ptr的地址类型不匹配
     ptr = (struct student *)student.name;
 
