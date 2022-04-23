@@ -1,14 +1,14 @@
 ---
-typora-copy-images-to: cPlusPlus\data\image
+typora-copy-images-to: objectOrientedProgram\data\image
 ---
 
 # cEssence
 
-# 编译过程
+# 编译原理
 
-<img src="D:/lyh/opengrok/source/cEssence/cPlusPlus/data/image/c++%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B.png" alt="c++编译过程" style="zoom:50%;" />
+<img src="./objectOrientedProgram/data/image/c++%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B.png" alt="c++编译过程" style="zoom:50%;" />
 
-
+c++ 在c的基础上，融合了三种不同的编程方式：c语言过程化、c++面向对象、c++模板的泛型；泛型编程和面向对象的目标是相同的，使重用的代码和抽象通用的概念的技术更简单；面向对象强调的是编程的数据方面，而泛型编程强调的是独立于特定数据类型；
 
 # 数据类型
 
@@ -28,12 +28,29 @@ typora-copy-images-to: cPlusPlus\data\image
 
 数据类型是固定内存大小的别名，编译器在编译阶段确定分配内存空间的大小；
 
-## sizeof和strlen
+# 定义和声明
+
+定义：
+
+声明：
+
+```c++
+int num_tries = 0;
+int num_right = 1; // assignment 运算符初始化 继承c语言 如果对象属于内置类型 或者对象可以单一值初始化就没问题
+int  num_tries = 0,  num_right = 1; //多个同类型的可以放在一起
+int num_tries(5); // 构造函数语法（constructor syntax）
+
+complex<double> purei(0, 7); // 多个值初始化就需要用构造函数初始化
+```
+
+
+
+# sizeof和strlen
 
 # const和define
 
 ```c++
-const int a = 0; // a不能被修改
+const int m_a = 0; // a不能被修改
 int const b = 0; // b不能被修改
 
 //指针指向的对象声明为const或volatile
@@ -102,7 +119,7 @@ int main() {
 }
 ```
 
-## 变量和常量
+# 变量和常量
 
 变量：能读又能写的内存对象；
 
@@ -126,7 +143,7 @@ int main() {
 
 - 程序代码区：存放函数体的二进制代码；
 
-    ![内存四区](D:/lyh/opengrok/source/cEssence/cPlusPlus/data/image/%E5%86%85%E5%AD%98%E5%9B%9B%E5%8C%BA.png)
+    ![内存四区](objectOrientedProgram/data/image/%E5%86%85%E5%AD%98%E5%9B%9B%E5%8C%BA.png)
 
 ```c++
 int g_i1 = 1, g_i2 = 0, g_i3;
@@ -211,8 +228,8 @@ int main() {
 int value= 10; // value: 10, &value: 000000000062fe00
 int *p = nullPtr; // p是指向int类型的指针变量 空间为4个字节
 p = &value; // *p: 10, p: 000000000062fe00
-int a[10]; // a是一个数组 其中有10个元素
-p = a; // a是一个int数组类型 p指向a的首元素
+int m_a[10]; // a是一个数组 其中有10个元素
+p = m_a; // a是一个int数组类型 p指向a的首元素
 ```
 
 1. p是一个指针， 存储着变量value的地址；
@@ -233,7 +250,7 @@ p = a; // a是一个int数组类型 p指向a的首元素
 | ------------ | ---------- | ------------------------------------------------------------ |
 | int i；      | int        | 整型变量                                                     |
 | int *p;      | int *      | 定义p为指向整型数据的指针变量                                |
-| int a[10];   | int [10]   | 定义为整型数组a，有10个变量                                  |
+| int m_a[10];   | int [10]   | 定义为整型数组a，有10个变量                                  |
 | int *p[4];   | int *[4]   | 定义为指针数组p, 有4个指向整型数据的指针元素组成             |
 | int (*P)[4]; | int (*)[4] | p指向包含4个元素的一维数组的指针变量                         |
 | int f();     | int ()     | f为返回整型函数值的函数                                      |
@@ -273,17 +290,17 @@ p = a; // a是一个int数组类型 p指向a的首元素
 2）*p操作内存
 
 ```C++
-    int a = 5;
+    int m_a = 5;
     int b = 7;
     int* pInt = nullptr;
     int* pInt1 = nullptr;
-    pInt = &a;
+    pInt = &m_a;
     pInt1 = &b;
-    a = *pInt1; //从内存获取值
+    m_a = *pInt1; //从内存获取值
     *pInt = 8; 	// 给内存赋值
 
-    printf("%d %d %d\n", a, *pInt, *pInt1); // 8 8 7
-    printf("%d %d %d\n", &a, pInt, pInt1);  // 6422028 6422028 6422024
+    printf("%d %d %d\n", m_a, *pInt, *pInt1); // 8 8 7
+    printf("%d %d %d\n", &m_a, pInt, pInt1);  // 6422028 6422028 6422024
 ```
 
 - 在指针声明时，*号表示所声明的变量为指针
@@ -295,7 +312,7 @@ p = a; // a是一个int数组类型 p指向a的首元素
 3）指针变量和它指向的内存块是两个不同的概念
 
 - 给p赋值p=0x1111; 只会改变指针变量值，不会改变所指的内容；p = p +1; //p++
--  给*p赋值* p='a'; 不会改变指针变量的值，只会改变所指的内存块的值 
+-  给*p赋值* p='m_a'; 不会改变指针变量的值，只会改变所指的内存块的值 
 - =左边*p 表示 给内存赋值， =右边*p 表示取值 含义不同切结！
 - 保证所指的内存块能修改
 
@@ -304,7 +321,7 @@ p = a; // a是一个int数组类型 p指向a的首元素
 ​	指针步长（p++), 根据所致内存空间的数据类型来确定
 
 ```c++
-p++ = (unsigned char )p + sizeof(a);
+p++ = (unsigned char )p + sizeof(m_a);
 ```
 
 结论：指针的步长，根据所指内存空间类型来定。
@@ -455,9 +472,9 @@ int getData_Free2(void **data);
 
 // Declare pointer to any function that... 
 
-// ...accepts a string and returns a string 
+// ...accepts m_a string and returns m_a string 
 
-string (*g)(string a); *
+string (*g)(string m_a); *
 
 *// has no return value and no parameters void (*x)(); 
 
@@ -555,42 +572,42 @@ int printfArray1(int (*p)[2]) {
 
 ```c++
 // 一维数组刨析
-char a[10];
-printfArray(a, num);
-void printfArray(char a[10], size_t num);
-void printfArray(char a[], size_t num);
-void printfArray(char *a, size_t num);
+char m_a[10];
+printfArray(m_a, num);
+void printfArray(char m_a[10], size_t num);
+void printfArray(char m_a[], size_t num);
+void printfArray(char *m_a, size_t num);
 // 一维数组作为函数的实参，传入函数a[10]，C语言在处理a[10]的时候，并不会把所有的元素copy一次
-// 只会把数组的首元素的地址拿过来 a=>&a[0], 这是c语言高效的地方；
+// 只会把数组的首元素的地址拿过来 m_a=>&m_a[0], 这是c语言高效的地方；
 
 // 二维数组刨析
-char a[3][10];
-printfArray(a, num);
-void printfArray(char a[3][10], size_t num);
-void printfArray(char a[][10], size_t num);
-void printfArray(char **a, size_t num);
+char m_a[3][10];
+printfArray(m_a, num);
+void printfArray(char m_a[3][10], size_t num);
+void printfArray(char m_a[][10], size_t num);
+void printfArray(char **m_a, size_t num);
 // 二维数组在内存中也是线性排布的，类似于一维数组，唯一不同的地方 一维数组的a 和二维数组的a步长不一样；
 // 在二维数组也存在数组退化为指针的形式
-void func(char a[10])->void func(char a[])->void func(char *a);
-void func(char char a[3][10])->void func(char a[][10])->void func(char (*a)[10]);
-void func(char char *a[10])->void func(char **a);
+void func(char m_a[10])->void func(char m_a[])->void func(char *m_a);
+void func(char char m_a[3][10])->void func(char m_a[][10])->void func(char (*m_a)[10]);
+void func(char char *m_a[10])->void func(char **m_a);
 ```
 
 # 数组指针
 
 ```c++
-int a[4]; // a有4个元素， 每个元素都是整型
-int a[4][4]; // 二维数组
+int m_a[4]; // a有4个元素， 每个元素都是整型
+int m_a[4][4]; // 二维数组
 int (*p)[4]; // (*p)有4个元素，每个元素都为整型，p所指的对象有4个整型元素的数组，p是指向一维数组的			  // 指针，p只能指向一个包含4个元素的一位数组，不能指向一维数组中的某一个元素；p的值就是			 // 该一维数组的起始地址
 ```
 
 二维数组元素是整型的，相当于整型变量，可以用int *来指向它，二维数组的元素在内存中是线性的，按行顺序存放的，一行一行地存放元素，可以使用一个指向整型元素的指针变量，依次指向各个元素；
 
 ```c++
-int a[][4] = {1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23};
+int m_a[][4] = {1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23};
 int *p;
-for(p = a[0];  p < a[0] + 12; ++p ) {
-    if((p - a[0])%4 == 0) {
+for(p = m_a[0];  p < m_a[0] + 12; ++p ) {
+    if((p - m_a[0])%4 == 0) {
         printf("\n");
     }
     printf("%d ", *p);
@@ -607,9 +624,9 @@ printf("\n");
 ```c++
 int (*p)(int, int); // p是一个指向函数的指针变量，它可以指向函数的类型为整型且有两个整型参数的函数
 					// p 的类型用int(*)(int, int)表示， p先和*结合 指针变量 在和()结合表示一个函					// 数，该指针变量不是指向一般的变量，而是指向函数
-p = max(a, b); 		// 把max函数返回值返回给p
+p = max(m_a, b); 		// 把max函数返回值返回给p
 p = max;			// 把max函数的入口地址返回给p
-c = (*P)(a, b);		// 调用p指向的函数
+c = (*P)(m_a, b);		// 调用p指向的函数
 ```
 
 # 返回指针值的函数
@@ -617,7 +634,7 @@ c = (*P)(a, b);		// 调用p指向的函数
 类型名 *函数名（参数表列）
 
 ```c++
-int *a(int x, int y);  // a函数名字 调用a可以返回一个int*型（指向整型数据）的指针，得到整型数据的地址
+int *m_a(int x, int y);  // a函数名字 调用a可以返回一个int*型（指向整型数据）的指针，得到整型数据的地址
 ```
 
 
@@ -633,19 +650,19 @@ int (*p)[4] // 指向一维数组的指针变量
 ```
 
 ```c++
-int a[][4] = {1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23};
+int m_a[][4] = {1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23};
 int *p;
 int (*pArray)[4];
 
-for(p = a[0];  p < a[0] + 12; ++p ) {
-    if((p - a[0])%4 == 0) {
+for(p = m_a[0];  p < m_a[0] + 12; ++p ) {
+    if((p - m_a[0])%4 == 0) {
         printf("\n");
     }
     printf("%d ", *p);
 }
 printf("\n");
 
-pArray = a;
+pArray = m_a;
 
 for(int i = 0; i < 3; ++i) {
     for(int j = 0; j < 4; ++j) {
@@ -663,20 +680,239 @@ for(int i = 0; i < 3; ++i) {
 
 # 指针和结构体
 
+## 结构体
+
 ```c++
-struct student *ptr;
-strncpy(student.name, "hello world!", 10 * sizeof(char));
-student.age = 10;
-studentPtr = &student;
+// 1.先声明结构体类型，在定义该类型的变量
+/*struct 结构体名
+{
+    成员列表
+};*/
+struct Student1 {
+    int num;
+    char name[20];
+    char sex;
+    int age;
+    float socre;
+    char addr[30];
+}; // 最后一个分号
 
-studentPtr->name, student.name;
-(*studentPtr).age, student.age;  // (*studentPtr).age 和 studentPtr->age等价
+struct Student1 stu1, stu2;
 
-//ptr = student.name; // error ptr是指向结构体类型的指针， 不加转化，ptr的地址类型不匹配
-ptr = (struct student *)student.name;
+// 2. 在声明的同时定义变量
+/*struct 结构体名
+{
+    成员列表
+} 变量名表列;*/
+struct Student2 {
+    int num;
+    char name[20];
+    char sex;
+    int age;
+    float socre;
+    char addr[30];
+} stu3, stu4;
+
+// 3.不指定类型名直接定义结构体变量
+/*struct
+{
+    成员列表
+} 变量名表列;*/
+struct {
+    int num;
+    char name[20];
+    char sex;
+    int age;
+    float socre;
+    char addr[30];
+} stu5, stu6;
+
+//定义了一个数据类型 。固定大小内存块的别名 还没有分配内存
+typedef struct Teacher {
+    char name[64];
+    int age;
+} Teacher1;
+
+//初始化变量的三种方法
+Teacher1 t1 = {"aaaa", 31, 01};
+
+struct Teacher2 {
+    char name[64];
+    int aga;
+} t2 = {"names", 21};
+
+struct {
+    char name[64];
+    int aga;
+} t3 = {"names", 21};
 ```
 
+- 结构体类型和结构体变量是是不同的概念，只能对变量赋值、存取或者运算，而不能对一个类型赋值、存取或运算。在编译的时候，对类型是不分配内存空间的，只对变量分配空间；
+- 结构体类型中的成员名字和程序中的变量名字可以相同，二者不代表同意对象；
+- 对结构体变量中的成员（即域），可以单独使用，他的作用与地位相当于普通变量；
+
+```c++
+struct Student s = {.name = "lyh"}， s1; // 定义初始化，.name代表s.name，其余的数值型变量为0，字符型为'\0'，指针型为NULL;
+s.age = 15; // 结构体变量名.成员名 
+s.score = s1.socre; // 赋值运算
+sum = s.score + s1.socre; // 加法运算
+s1.age++; // 自加运算
+s1 = s2; // 同类的结构体变量可以互相赋值
+printf("%d ", &s1.age); // s1.age的地址
+printf("%d ", &s1);	 // 结构体变量s1的首地址
+```
+
+## 结构体数组
+
+```c++
+// 1.定义结构体类型 并且初始化
+/*struct 结构体名
+{
+    成员列表
+}数组名[数组长度];*/
+
+/*struct 结构体名
+{
+    成员列表
+}数组名[数组长度] = {初始值};*/
+// 2.先定义一个结构体类型 再去定义结构体数组
+// 结构体类型 数组名[数组长度]
+
+//对结构体数组初始化 在定义数组后面加上 = {初始值};
+#define NUM 5
+struct Student {
+    int num;
+    char name[20];
+    int socre;
+};
+
+int main() {
+    struct Student std[NUM] = {
+            {10101, "zhang", 78},
+            {10102, "wang", 56},
+            {10103, "li", 34},
+            {10104, "zhao", 79},
+            {10105, "liu", 12},
+    };
+    struct Student temp;
+    // bubble sort
+    for(int i = NUM - 1; i > 0; --i) {
+        bool flag = false;
+        for(int j = 1; j <= i; ++j) {
+            if(std[j].socre < std[j - 1].socre) {
+                temp = std[j - 1];
+                std[j - 1] = std[j];
+                std[j] = temp;
+                flag = true;
+            }
+        }
+        if(!flag) {
+            break;
+        }
+    }
+
+    for(auto s : std) {
+        printf("%d, %s, %d\n", s.num, s.name, s.socre);
+    }
+    return 0;
+}
+```
+
+## 结构体指针
+
+结构体指针：指向结构体变量的指针，一个结构体变量起始地址就是这个结构体变量的指针；如果把一个结构体变量的起始地址放在一个指针变量中，这个指针变量就指向该结构体变量；
+
+```c++
+struct Student {
+    char name[10];
+    int age;
+};
+
+int main() {
+
+    {
+        struct Student student = {"lyh", 18}, *studentPtr;
+        student.age = 10;
+        printf("name: %s, age: %d\n", student.name, student.age);
+        studentPtr = &student;
+        printf("%s %s %s\n", student.name, (*studentPtr).name, studentPtr->name); // (*studentPtr).age 和 studentPtr->age等价
+    }
+
+    struct Student std[4] = {
+            {"wang", 58},
+            {"liu", 45},
+            {"li", 32},
+            {"wen", 78},
+    }, *p;
+    p = std;
+
+    for(; p < std + 4; ++p) {
+        printf("name: %s, age: %d\n", p->name, p->age);
+    }
+
+    //ptr = student.name; // error ptr是指向结构体类型的指针， 不加转化，ptr的地址类型不匹配
+    //ptr = (struct student *)std[1].name;
+    //printf("name: %s\n", ptr);
+    return 0;
+}
+```
+
+
+
 ## 结构体变量和结构体变量的指针作为函数参数三种方式
+
+```c++
+#define NUM 3
+
+struct Student {
+    int num;
+    char name[20];
+    float score[3];
+    float aver;
+};
+
+void input(struct Student *stu) {
+    struct Student *p = stu;
+    for(; p < stu + NUM; ++p) {
+        scanf("%d %s %f %f %f", &p->num, &p->name, &p->score[0], &p->score[1], &p->score[2]);
+        p->aver = (p->score[0] + p->score[1] + p->score[2]) / 3.0;
+    }
+
+    /*for(int i = 0; i < NUM; ++i) {
+        scanf("%d %s %f %f %f", &stu[i].num, &stu[i].name, &stu[i].score[0], &stu[i].score[1], &stu[i].score[2]);
+        stu[i].aver = (stu[i].score[0] + stu[i].score[1] + stu[i].score[2]) / 3.0;
+    }*/
+}
+
+struct Student max(struct Student stu[]) {
+    struct Student *p = stu + 1, *q = stu;
+
+    for(; p < stu + NUM; ++p) {
+        if(p->aver > q->aver) {
+            q = p;
+        }
+    }
+    return *q;
+    /*int m = 0;
+    for(int i = 1; i < NUM; ++i) {
+        if(stu[i].aver > stu[i - 1].aver) {
+            m = i;
+        }
+    }
+    return stu[m];*/
+}
+
+void printfStruct(struct Student stu) {
+    printf("%d %s %f %f %f %f", stu.num, stu.name, stu.score[0], stu.score[1], stu.score[2], stu.aver);
+}
+
+int main() {
+    struct Student stu[NUM];
+    input(stu);
+    printfStruct(max(stu));
+    return 0;
+}
+```
 
 1.结构体的变量成员作为参数，类似于值传递；
 
@@ -781,16 +1017,16 @@ private:
    double re, im;
 };
 
-// Operator overloaded using a member function
+// Operator overloaded using m_a member function
 Complex Complex::operator+( Complex &other ) {
    return Complex( re + other.re, im + other.im );
 }
 
 int main() {
-   Complex a = Complex( 1.2, 3.4 );
+   Complex m_a = Complex( 1.2, 3.4 );
    Complex b = Complex( 5.6, 7.8 );
    Complex c = Complex( 0.0, 0.0 );
-   c = a + b;
+   c = m_a + b;
    c.Display();
 }
 ```
@@ -802,15 +1038,15 @@ int main() {
 最小函数 *声明* 包含返回类型、函数名称和参数列表 (可能为空) 以及向编译器提供其他指令的可选关键字。 以下示例是函数声明：
 
 ```cpp
-int sum(int a, int b);
+int sum(int m_a, int b);
 ```
 
 函数定义由声明和 *正文*组成，正文是大括号之间的所有代码：
 
 ```cpp
-int sum(int a, int b)
+int sum(int m_a, int b)
 {
-    return a + b;
+    return m_a + b;
 }
 ```
 
@@ -914,9 +1150,9 @@ string s1("hello world");
 const string s2("another value");
 fobj(s1, s2);  // fobj(); const 被忽略
 fref(s1, s2); //fref(const string&, const string&)`
-int a[10], b[42];
-fobj(a, b); // f(int*, int*)` 
-fref(a, b); //error array type mismatch
+int m_a[10], b[42];
+fobj(m_a, b); // f(int*, int*)` 
+fref(m_a, b); //error array type mismatch
 
 template <class T> int compare(const T&, const T&);
 compare("hi", "world"); //error static int compare(const char (&)[3], const char (&)[3])
@@ -1022,6 +1258,14 @@ void text3()
 
 每个虚函数的对象必须维护一个virtual table，因此在使用虚函数的时候会产生一个系统的开销；如果仅是很小的类，且不需要派生类（子类），不需要虚函数；每个对象的虚表指针指向虚表，虚表存放虚函数的地址；虚函数表是顺序存放虚函数地址的，不需要用到链表；
 
+## 构造函数
+
+## 拷贝构造函数
+
+## 赋值构造函数
+
+
+
 ```C++
 myClass(): data(i); // 带参数的构造函数， 冒号后面是成员变量初始化列表（member 			   					   // initializationlist）
 ```
@@ -1068,7 +1312,140 @@ RTTI,runtime type information，运行时开销主要在进行整型比较和取
 
 不需要构造和析构的类型，没有很大的开销；对于那些需要初始化销毁的类型，有部分的开销；
 
-# STL
+# Container
+
+## 容器分类
+
+### Sequence Containers
+
+#### [**1.array** ](https://www.cplusplus.com/reference/array/array/)
+
+##### 特性
+
+数组是固定大小的序列容器:它们以严格的线性序列保存特定数量的元素。
+		在内部，数组除了它所包含的元素之外不保留任何数据(甚至不保留它的大小，这是一个模板参数，在编译时固定)。就存储大小而言，它与使用语言的方括号语法([])声明的普通数组一样高效。这个类只添加了一层成员和全局函数，这样数组就可以用作标准容器。
+
+数组容器的另一个独特特性是，它们可以被视为元组对象:<array>头文件重载get函数，以访问数组的元素，就像它是元组一样，以及特定的tuple_size和tuple_element类型。
+
+容器中的元素按严格的线性顺序排列。单个元素可以通过它们在序列中的位置来访问。
+
+这些元素存储在连续的内存位置，允许常量时间随机访问元素。指向一个元素的指针可以进行偏移以访问其他元素。
+
+容器使用隐式构造函数和析构函数静态地分配所需的空间。它的大小是编译时常数。没有内存或时间开销。
+
+##### 函数
+
+```c++
+/*Member functions
+    Iterators
+    begin Return iterator to beginning (public member function )
+    end Return iterator to end (public member function )
+    rbegin Return reverse iterator to reverse beginning (public member function )
+    rend Return reverse iterator to reverse end (public member function )
+    cbegin Return const_iterator to beginning (public member function )
+    cend Return const_iterator to end (public member function )
+    crbegin Return const_reverse_iterator to reverse beginning (public member function )
+    crend Return const_reverse_iterator to reverse end (public member function )
+    
+    Capacity
+    size Return size (public member function )
+    max_size Return maximum size (public member function )
+    empty Test whether array is empty (public member function )
+    
+    Element access
+    operator[] Access element (public member function )
+    at Access element (public member function )
+    front Access first element (public member function )
+    back Access last element (public member function )
+    data Get pointer to data (public member function )
+Modifiers
+fill Fill array with value (public member function )
+swap Swap content (public member function )
+Non-member function overloads
+get (array) Get element (tuple interface) (function template )
+relational operators (array) Relational operators for array (function template )
+Non-member class specializations
+tuple_element<array> Tuple element type for array (class template specialization )
+tuple_size<array> Tuple size traits for array (class template specialization )*/
+```
+
+
+
+#### [**2.vector**](https://www.cplusplus.com/reference/vector/vector/)
+
+Vector (class template )
+
+#### [**3.deque**](https://www.cplusplus.com/reference/deque/deque/)
+
+Double ended queue (class template )
+
+#### [**4.forward_list** ](https://www.cplusplus.com/reference/forward_list/forward_list/)
+
+Forward list (class template )
+
+#### [**5.list**](https://www.cplusplus.com/reference/list/list/)
+
+List (class template )
+
+
+
+### Containers adaptors
+
+#### [**1.queue**](https://www.cplusplus.com/reference/queue/queue/)
+
+FIFO queue (class template )
+
+#### 2.[**priority_queue**](https://www.cplusplus.com/reference/queue/priority_queue/)
+
+Priority queue (class template )
+
+
+
+### Associative Containers
+
+#### [**1.set**](https://www.cplusplus.com/reference/set/set/)
+
+Set (class template )
+
+#### [**2.multiset**](https://www.cplusplus.com/reference/set/multiset/)
+
+Multiple-key set (class template )
+
+#### [**3.map**](https://www.cplusplus.com/reference/map/map/)
+
+Map (class template )
+
+#### [**4.multimap**](https://www.cplusplus.com/reference/map/multimap/)
+
+Multiple-key map (class template )
+
+### Unordered associative Containers
+
+#### [**1.unordered_set** ](https://www.cplusplus.com/reference/unordered_set/unordered_set/)
+
+Unordered Set (class template )
+
+#### [**2.unordered_multiset** ](https://www.cplusplus.com/reference/unordered_set/unordered_multiset/)
+
+Unordered Multiset (class template )
+
+#### [**3.unordered_map** ](https://www.cplusplus.com/reference/unordered_map/unordered_map/)
+
+Unordered Map (class template )
+
+#### [**4.unordered_multimap** ](https://www.cplusplus.com/reference/unordered_map/unordered_multimap/)
+
+Unordered Multimap (class template )
+
+
+
+
+
+
+
+
+
+## 容器归类
 
 vector  可变大小，支持快速随机访问，在尾部之外插入或者删除比较慢
 
@@ -1078,7 +1455,7 @@ list  双向链表  支持双向顺序访问 在list任意位置插入删除速�
 
 forward_list单向链表 单向访问   在list任意位置插入删除速度快
 
-array 固定数组 支持随机访问  不能添加或者删除元素
+array 固定数组 支持随机访问  不能添加或者删除元素 
 
 string 与vector相似的容器  随机访问快 在尾部插入 删除速度快
 
@@ -1108,11 +1485,17 @@ string 与vector相似的容器  随机访问快 在尾部插入 删除速度快
 
 排序算法     sort、stable_sort、partial_sort、
 
+## 容器图
+
+![](objectOrientedProgram/data/image/associativeContainers.png)
+
+![sequenceContainers](objectOrientedProgram/data/image/sequenceContainers.png)
+
 # **ASCII**
 
 <img src="C:\Users\24643\AppData\Roaming\Typora\typora-user-images\image-20220226001153775.png" alt="image-20220226001153775" style="zoom: 50%;" />
 
-![ascll](D:\lyh\opengrok\source\cEssence\c\data\image\ascll.png)
+![ascll](objectOrientedProgram\data\image\ascll.png)
 
 # 运算符和结合性
 
