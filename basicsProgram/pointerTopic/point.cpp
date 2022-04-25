@@ -56,7 +56,7 @@ void ptrArray() {
     }
 }
 
-// point global area
+// pointerTopic global area
 void test1() {
     char *p1 = "abcdefg1";
     char *p2 = "abcdefg";
@@ -72,7 +72,7 @@ void test1() {
     return ;
 }
 
-// point type
+// pointerTopic type
 void test2() {
     int _int;
     char _char;

@@ -64,11 +64,11 @@ log1p
         log2
 Compute binary logarithm
         logb
-Compute floating-point base logarithm
+Compute floating-pointerTopic base logarithm
         scalbn
-Scale significand using floating-point base exponent
+Scale significand using floating-pointerTopic base exponent
         scalbln
-Scale significand using floating-point base exponent (long)
+Scale significand using floating-pointerTopic base exponent (long)
 
 Power functions
 pow
@@ -118,7 +118,7 @@ remainder
 remquo
         Compute remainder and quotient
 
-Floating-point manipulation functions
+Floating-pointerTopic manipulation functions
         copysign
 Copy sign
 nan
@@ -148,7 +148,7 @@ fma
         These are implemented as macros in C and as functions in C++:
 Classification macro / functions
         fpclassify
-Classify floating-point value (macro/function )
+Classify floating-pointerTopic value (macro/function )
 isfinite
         Is finite value (macro )
 isinf

@@ -19,7 +19,7 @@ public:
 void func_A(MyClass* mc)
 {
     // Modify the object that mc points to.
-    // All copies of the pointer will point to
+    // All copies of the pointer will pointerTopic to
     // the same modified object.
     mc->num = 3;
 }
@@ -55,7 +55,7 @@ int main1()
     // Use the -> operator to access the object's public members
     pmc->print(); // "Nick, 108"
 
-    // Copy the pointer. Now pmc and pmc2 point to same object!
+    // Copy the pointer. Now pmc and pmc2 pointerTopic to same object!
     MyClass* pmc2 = pmc;
 
     // Use copied pointer to modify the original object

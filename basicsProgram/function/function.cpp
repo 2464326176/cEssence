@@ -26,7 +26,7 @@ std::tuple<int, double, std::string> f() {
     double tuple_double{ 8.89 };
     std::string tuple_string{ "apple" };
 }
-int main() {
+int main11() {
     /*
     std::cout << a << std::endl;
     std::cout << b << std::endl;
