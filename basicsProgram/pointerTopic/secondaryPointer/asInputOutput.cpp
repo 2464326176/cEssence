@@ -8,6 +8,7 @@
 
 //指针做输出：被调用函数分配内存
 //指针做输入：主调用函数 分配内存
+
 // 二级指针 一级指针作为输出
 int getMem(char **myp1, int *mylen1, char **myp2, int *mylen2) {
     char *tmp1 = NULL;
