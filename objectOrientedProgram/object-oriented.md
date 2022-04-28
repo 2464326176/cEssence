@@ -1,5 +1,12 @@
 # 面向对象
 
+类的基本思想是数据抽象（data abstruction）和封装（encapsulated），数据抽象是一种依赖接口（interface）和实现（implementation）分离的编程技术；
+
+- 类的接口包括用户所执行的操作；
+- 类的实现包括类的数据成员、负责接口的实现的函数体以及定义类所需要的各种私有函数；
+
+
+
 面向对象必须提供对象、类和继承；对于一个空类，编译器默认产生4个成员函数：默认构造函数、默认析构函数、默认拷贝构造函数、默认赋值函数。
 
 静态成员变量在同一个类中的所有实例间共享数据，如果想限制对静态成员变量的访问，必须把他们声明为保护型和私有型的，不允许用静态成员变量去存放某一个对象的数据；
@@ -8,11 +15,107 @@
 
 每个虚函数的对象必须维护一个virtual table，因此在使用虚函数的时候会产生一个系统的开销；如果仅是很小的类，且不需要派生类（子类），不需要虚函数；每个对象的虚表指针指向虚表，虚表存放虚函数的地址；虚函数表是顺序存放虚函数地址的，不需要用到链表；
 
-## 构造函数
+## 1、构造函数
 
-## 拷贝构造函数
+### 1.1构造函数初始化列表
 
-## 赋值构造函数
+```c++
+class object {
+public:
+    /*object(int a, float b, int r) {
+        this->a = a;
+        this->b = b; // error 不能给const 赋值
+        this->r = r; // 错误 r没被初始化
+    }*/
+    // 列表初始化
+    object(int a, float b, int r) : a(a), b(b), r(r) {
+
+    }
+
+private:
+    int a;
+    const float b;
+    int &r;
+};
+object obj(1, 2.2, 5);
+```
+
+如果成员是const、引用或者属于某种未提供默认构造函数的类类型，我们必须通过构造函数初始值列表为这些成员提供初值；
+
+建议使用构造函数初始值，在类中初始化和赋值的区别事关底层效率问题：前者直接初始化数据成员，后置也是先初始化再赋值，一些数据成员必须被初始化；
+
+### 1.2成员初始化的顺序
+
+成员初始化的顺序和变量在类中出现的先后顺序一致，构造函数初始值列表中初始值的前后位置关系不会影响实际的初始化顺序；
+
+```c++
+class SalesData {
+    friend std::istream &read(std::istream &is, SalesData &item);
+    friend std::ostream &print(std::ostream &os, const SalesData &item);
+    friend SalesData& add(const SalesData &lhs, const SalesData &rhs);
+public:
+    SalesData() = default;
+    SalesData(std::string &bookNo) : bookNo(bookNo) {}
+    SalesData(std::string bookNo, unsigned units_sold, double price) :
+            bookNo(bookNo), units_sold(units_sold), revenue(units_sold * price) {}
+    SalesData(std::istream &is);
+
+    SalesData() : SalesData("", 0, 0) {} // 构造函数全部委托给另外一个构造函数
+    SalesData(std::string &bookNo) : SalesData(bookNo, 0, 0) {}
+    SalesData(std::istream &is)  : SalesData() { read(is, *this)};
+
+    std::string isBookNo() const { return this->bookNo; }
+    SalesData &combine(const SalesData &salesData);
+
+private:
+    std::string bookNo;
+    unsigned units_sold = 0;
+    double revenue = 0.0;
+};
+
+Sales_data first_item(cin);   // use Sales_data(std::istream &is) ; its value are up to your input.
+
+int main() {
+  	Sales_data next;  // use Sales_data(std::string s = ""); bookNo = "", cnt = 0, revenue = 0.0
+  	Sales_data last("9-999-99999-9"); // use Sales_data(std::string s = ""); bookNo = "9-999-99999-9", cnt = 0, revenue = 0.0
+}
+```
+
+当一个构造函数委托给另外一个构造函数时，受到委托的构造函数的初始值列表和函数体被依次执行，在Sales_data中，受委托的构造函数体恰好时空的，假如函数体包含有代码的话，将先执行这些代码，然后控制权才会交还给委托者的函数体；
+
+### 1.3默认构造函数的作用
+
+1、当对象被默认初始化或者值初始化时自动执行默认构造函数
+
+- 在块作用域内不使用任何初始值定义一个非静态变量或者数组；
+
+- 当一个类本身含有类类型的成员且使用合成的默认构造函数时；
+- 当类类型的成员没有在构造函数初始值列表中显式地初始化时；
+
+2、值初始化在以下情况发生
+
+- 在数组初始化的过程中如果我们提供的初始值数量少于数组的大小时；
+- 当我们不使用初始值定义一个局部静态变量时；
+- 当我们通过书写形如T()的表达式显示地请求值初始化时，其中T是类型名；
+
+```c++
+Sales_data obj(); // 函数
+Sales_data obj1; // 声明一个对象 调用默认的构造函数
+```
+
+### 1.4类隐式类型转化
+
+```c++
+item.combine(string("999-999"));//显示转化为string 隐式转化为Sales_data
+item.combine(Sales_data("999-999"));//隐式转化为string 显示转化为Sales_data
+item.combine("xxx-1156-9875"); // error 没有char*的 无法从char*转化为其他的类型
+```
+
+当我们使用explicit声明构造函数，它只能以直接初始化的形式使用，编译器不可以在自动转换过程中使用该构造函数；
+
+## 2、拷贝构造函数
+
+## 3、赋值构造函数
 
 
 
@@ -20,9 +123,22 @@
 myClass(): data(i); // 带参数的构造函数， 冒号后面是成员变量初始化列表（member 			   					   // initializationlist）
 ```
 
+## 4、友元
 
+friend是类授予非公共成员访问权限的机制。他们享有与成员相同的权利。
 
-## 继承和接口
+优点：
+
+- 有用的函数可以引用类作用域中的类成员，而无需显式地在它们前面加上类名。
+- 方便地访问所有非公开成员。
+- 有时，类的用户更容易阅读。
+
+缺点：
+
+- 减少封装，从而降低可维护性。
+- 代码冗长，类内声明，类外声明。
+
+## 5、继承和接口
 
 ### virtual
 
