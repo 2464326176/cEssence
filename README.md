@@ -36,7 +36,9 @@
 
 ## 5、高级话题
 
-## 6、c++新特性
+- **[动态库静态库封装](templatesAndGenericProgram\functionTemplate)**
+
+## 6、c++11新特性
 
 ## 7、杂项
 
