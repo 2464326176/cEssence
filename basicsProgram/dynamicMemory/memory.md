@@ -22,7 +22,7 @@
 
 - 程序代码区：存放函数体的二进制代码；
 
-    ![内存四区](D:/lyh/opengrok/source/cEssence/objectOrientedProgram/data/image/%25E5%2586%2585%25E5%25AD%2598%25E5%259B%259B%25E5%258C%25BA.png)
+    ![内存四区](../../staticFile/data/image/%E5%86%85%E5%AD%98%E5%9B%9B%E5%8C%BA.png)
 
 ```c++
 int g_i1 = 1, g_i2 = 0, g_i3;
