@@ -6,9 +6,11 @@
 
 ## 1、c++基础编程
 
+- [编译原理](basicsProgram\PrincipleofCompiler)
 - [**指针**](basicsProgram/pointerTopic)
-- **动态内存**[](basicsProgram/dynamicMemory)
+- [动态内存](basicsProgram\dynamicMemory)
 - **[数据类型](basicsProgram/dataType)**
+- [函数话题](basicsProgram\function)
 - **[左值右值](basicsProgram/reference)**
 - **[STL](basicsProgram/container)**
 - **[IO](basicsProgram/IO)**
