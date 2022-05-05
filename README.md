@@ -30,6 +30,10 @@
 
 ## 4、泛型编程
 
+- **[泛型编程](templatesAndGenericProgram\functionTemplate)**
+- **[类模板](templatesAndGenericProgram\classTemplate)**
+- **[函数模板](templatesAndGenericProgram\functionTemplate)**
+
 ## 5、高级话题
 
 ## 6、c++新特性
