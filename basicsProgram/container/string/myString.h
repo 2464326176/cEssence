@@ -9,19 +9,22 @@
 #define STRING_CPLUSSTRING_H
 
 
-
-class String
-{
+class String {
 public:
     String(const char *str = nullptr);
-    String(const String &str);
-    String & operator =(const String &str);
 
-    char* c_str(){ return m_sptr;}
-    void printS(){ std::cout << m_sptr << std::endl;}
+    String(const String &str);
+
+    String &operator=(const String &str);
+
+    char *c_str() { return m_sptr; }
+
+    void printS() { std::cout << m_sptr << std::endl; }
+
     ~String();
+
 private:
-    char* m_sptr;
+    char *m_sptr;
 };
 
 

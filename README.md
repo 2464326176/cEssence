@@ -6,6 +6,13 @@
 
 ## 1、c++基础编程
 
+- [**指针**](basicsProgram/pointerTopic)
+- **动态内存**[](basicsProgram/dynamicMemory)
+- **[数据类型](basicsProgram/dataType)**
+- **[左值右值](basicsProgram/reference)**
+- **[STL](basicsProgram/container)**
+- **[IO](basicsProgram/IO)**
+
 ## 2、面向过程编程
 
 ## 3、面向对象编程

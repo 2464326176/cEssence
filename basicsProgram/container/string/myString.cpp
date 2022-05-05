@@ -7,7 +7,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <string.h>
-#include "cplusString.h"
+#include "myString.h"
 
 
 

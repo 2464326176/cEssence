@@ -1,8 +1,48 @@
+---
+typora-root-url: ..\..\staticFile\data\image
+---
+
 # Container
 
 ## 容器分类
 
-### Sequence Containers
+顺序容器（Sequence Containers）：不依赖元素的值，而是和元素加入容器的位置相对应；
+
+顺序容器：
+
+顺序容器：
+
+- vector  可变大小，支持快速随机访问，在尾部之外插入或者删除比较慢
+
+- deque  双端队列 支持快速随机访问 头尾插入删除快
+
+- list  双向链表  支持双向顺序访问 在list任意位置插入删除速度快
+
+- forward_list 单向链表 单向访问   在list任意位置插入删除速度快
+
+- array 固定数组 支持随机访问  不能添加或者删除元素 
+
+- string 与vector相似的容器  随机访问快 在尾部插入 删除速度快
+
+容器的选择
+
+1.一般来说尽量选择vector，除非有更好的选择；
+
+2.如果你的程序很少的元素，且空间的额外的开销很重要，不要使用list和forward_list;
+
+3.如果要支持随机访问，应该使用vector或者deque；
+
+4.如果程序要求在容器的中间插入或者删除元素，应该使用list或者forward_list；
+
+5.如果程序需要在头尾插入或者删除元素，但是不会再中间插入或者删除元素，使用deque；
+
+6.如果程序在读取输入时才需要在容器中间位置插入元素，随后需要在随机访问元素
+
+​	首先确认是不是需要在容器中间位置插入元素，当处理输入数据时通常可以向vec添加数据，然后调用sort排序，避免在中间插入元素；
+
+​	必须在中间插入元素，先使用list，在使用vectorcopy一次；
+
+### 1、顺序容器（Sequence Containers）
 
 #### [**1.array** ](https://www.cplusplus.com/reference/array/array/)
 
@@ -18,44 +58,6 @@
 这些元素存储在连续的内存位置，允许常量时间随机访问元素。指向一个元素的指针可以进行偏移以访问其他元素。
 
 容器使用隐式构造函数和析构函数静态地分配所需的空间。它的大小是编译时常数。没有内存或时间开销。
-
-##### 函数
-
-```c++
-/*Member functions
-    Iterators
-    begin Return iterator to beginning (public member function )
-    end Return iterator to end (public member function )
-    rbegin Return reverse iterator to reverse beginning (public member function )
-    rend Return reverse iterator to reverse end (public member function )
-    cbegin Return const_iterator to beginning (public member function )
-    cend Return const_iterator to end (public member function )
-    crbegin Return const_reverse_iterator to reverse beginning (public member function )
-    crend Return const_reverse_iterator to reverse end (public member function )
-    
-    Capacity
-    size Return size (public member function )
-    max_size Return maximum size (public member function )
-    empty Test whether array is empty (public member function )
-    
-    Element access
-    operator[] Access element (public member function )
-    at Access element (public member function )
-    front Access first element (public member function )
-    back Access last element (public member function )
-    data Get pointer to data (public member function )
-Modifiers
-fill Fill array with value (public member function )
-swap Swap content (public member function )
-Non-member function overloads
-get (array) Get element (tuple interface) (function template )
-relational operators (array) Relational operators for array (function template )
-Non-member class specializations
-tuple_element<array> Tuple element type for array (class template specialization )
-tuple_size<array> Tuple size traits for array (class template specialization )*/
-```
-
-
 
 #### [**2.vector**](https://www.cplusplus.com/reference/vector/vector/)
 
@@ -73,9 +75,13 @@ Forward list (class template )
 
 List (class template )
 
+### 6.string
 
 
-### Containers adaptors
+
+
+
+### 2、容器适配器（Containers adaptors）
 
 #### [**1.queue**](https://www.cplusplus.com/reference/queue/queue/)
 
@@ -87,7 +93,7 @@ Priority queue (class template )
 
 
 
-### Associative Containers
+### 3、关联容器（Associative Containers）
 
 #### [**1.set**](https://www.cplusplus.com/reference/set/set/)
 
@@ -105,7 +111,7 @@ Map (class template )
 
 Multiple-key map (class template )
 
-### Unordered associative Containers
+### 4、无序关联容器（Unordered associative Containers）
 
 #### [**1.unordered_set** ](https://www.cplusplus.com/reference/unordered_set/unordered_set/)
 
@@ -131,19 +137,7 @@ Unordered Multimap (class template )
 
 
 
-## 容器归类
 
-vector  可变大小，支持快速随机访问，在尾部之外插入或者删除比较慢
-
-deque  双端队列 支持快速随机访问 头尾插入删除快
-
-list  双向链表  支持双向顺序访问 在list任意位置插入删除速度快
-
-forward_list单向链表 单向访问   在list任意位置插入删除速度快
-
-array 固定数组 支持随机访问  不能添加或者删除元素 
-
-string 与vector相似的容器  随机访问快 在尾部插入 删除速度快
 
 #### STL中算法分类
 
@@ -171,8 +165,8 @@ string 与vector相似的容器  随机访问快 在尾部插入 删除速度快
 
 排序算法     sort、stable_sort、partial_sort、
 
-## 容器图
+## 容器归纳图
 
-![](D:/lyh/opengrok/source/cEssence/objectOrientedProgram/data/image/associativeContainers.png)
+![](associativeContainers.png)
 
-![sequenceContainers](D:/lyh/opengrok/source/cEssence/objectOrientedProgram/data/image/sequenceContainers.png)
+![sequenceContainers](sequenceContainers.png)
