@@ -89,7 +89,21 @@ FIFO queue (class template )
 
 #### 2.[**priority_queue**](https://www.cplusplus.com/reference/queue/priority_queue/)
 
-Priority queue (class template )
+```c++
+template <class T, class Container = vector<T>,
+class Compare = less<typename Container::value_type> > class priority_queue;
+```
+
+
+优先级队列是一种容器适配器，根据一些严格的弱排序标准，专门设计为其第一个元素始终是其包含的最大元素。此上下文类似于**堆**，其中可以随时插入元素，并且只能检索最大堆元素（优先级队列中位于顶部的元素）。
+
+优先级队列被实现为容器适配器，它们是使用特定容器类的封装对象作为其底层容器的类，提供一组特定的成员函数来访问其元素。元素从特定容器的“后部”弹出，称为优先级队列的顶部。
+
+底层容器可以是任何标准容器类模板或其他一些专门设计的容器类。容器应可通过随机访问迭代器访问，并支持以下操作：
+
+标准容器类 vector 和 deque 满足这些要求。默认情况下，如果没有为特定的 priority_queue 类实例指定容器类，则使用标准容器向量。
+
+需要支持随机访问迭代器以始终在内部保持堆结构。这是由容器适配器通过在需要时自动调用算法函数 make_heap、push_heap 和 pop_heap 自动完成的。
 
 
 
