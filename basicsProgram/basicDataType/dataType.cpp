@@ -18,5 +18,18 @@ int main() {
     cout << "decimal: " << dec << num << endl;
     cout << "hexadecimal: " << hex << num << endl;
 
+
+
+    //列表初始化
+    int a1 = 0;
+    int a2 = {0};
+    int a3 {0};
+    int a4(0);
+
+    long double ld = 3.14;
+    //int b{ld}, c = {ld}; // error
+    int d(ld), f = ld;
+
+
     return 0;
 }

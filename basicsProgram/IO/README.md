@@ -2,7 +2,7 @@
 
 ## io库
 
-![](D:/lyh/opengrok/source/cEssence/staticFile/data/image/io.png)
+![](../../staticFile/data/image/io.png)
 
 iostream  处理完成控制台的IO
 
