@@ -33,7 +33,7 @@ int main( int argc, char *argv[] ) {
         cerr << "Usage: " << argv[0] << " [1 | 2]" << "\n";
         cerr << "\nwhere:\n";
         cerr << "1 uses double indirection\n";
-        cerr << "2 uses a reference to a pointer.\n";
+        cerr << "2 uses a lvalueAndRvalue to a pointer.\n";
         cerr << "\nInput is from stdin. Use ^Z to terminate input.\n";
         return 1;
     }
@@ -57,7 +57,7 @@ int main( int argc, char *argv[] ) {
                 case '1':
                     Add1( &btRoot, szBuf );
                     break;
-                    // Method 2: Use reference to a pointer.
+                    // Method 2: Use lvalueAndRvalue to a pointer.
                 case '2':
                     Add2( btRoot, szBuf );
                     break;
@@ -108,7 +108,7 @@ int Add1( BTree **Root, char *szToAdd ) {
 }
 
 // Add2: Add a node to the binary tree.
-//       Uses reference to pointer
+//       Uses lvalueAndRvalue to pointer
 int Add2( BTree*& Root, char *szToAdd ) {
     if ( Root == 0 ) {
         Root = new BTree;

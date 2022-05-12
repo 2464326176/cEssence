@@ -7,12 +7,12 @@
 ## 1、c++基础编程
 
 - **[编译原理](basicsProgram/PrincipleofCompiler/README.md)**
-- **[基本数据类型](basicsProgram/basicDataType/README.md)**
+- **[基本数据类型](basicsProgram/PrincipleofCompiler/basicDataType/README.md)**
 - **[IO流](basicsProgram/IO/README.md)**
 - **[指针总结](basicsProgram/pointerTopic/README.md)**
 - **[动态内存](basicsProgram/dynamicMemory/README.md)**
 - **[函数话题](basicsProgram/function/README.md)**
-- **[左值右值](basicsProgram/reference/README.md)**
+- **[左值右值](basicsProgram/lvalueAndRvalue/README.md)**
 - **[STL](basicsProgram/container/README.md)**
 
 ## 2、面向过程编程
