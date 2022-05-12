@@ -16,5 +16,8 @@ int main() {
     cout << "sizeof(B): " << sizeof(B) << endl;
     cout << "sizeof(C): " << sizeof(C) << endl;
 
+
+    cout << sizeof(A) << endl << sizeof(B) << endl << sizeof(C) << endl;
+    cout << sizeof(B2) << endl;
     return 0;
 }

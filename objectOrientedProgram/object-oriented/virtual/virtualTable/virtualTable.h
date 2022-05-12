@@ -31,6 +31,41 @@ public:
     }
 };
 
+class A1 {
+    char a[2];
+public:
+    virtual void aa() {};
+};
+
+class B1 : public virtual A1 {
+    char b[2];
+    char a[2];
+public:
+    virtual void bb() {};
+    virtual void aa() {};
+};
+
+class C1 : public virtual B1 {
+    char a[2];
+    char b[2];
+    char c[2];
+public:
+    virtual void cc() {};
+    virtual void aa() {};
+    virtual void bb() {};
+};
+
+
+class A2
+{
+public:
+    void *p1;
+private:
+    void *p2;
+protected:
+    void *p3;
+};
+class B2: public A2 {};
 
 
 
