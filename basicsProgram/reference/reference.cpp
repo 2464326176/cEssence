@@ -38,8 +38,8 @@ void f(MemoryBlock&&) {
 template<typename T> struct S;
 
 // The following structures specialize S by
-// lvalue lvalueAndRvalue (T&), const lvalue lvalueAndRvalue (const T&),
-// rvalue lvalueAndRvalue (T&&), and const rvalue lvalueAndRvalue (const T&&).
+// lvalue reference (T&), const lvalue reference (const T&),
+// rvalue reference (T&&), and const rvalue reference (const T&&).
 // Each structure provides a print method that prints the type of
 // the structure and its parameter.
 

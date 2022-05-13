@@ -53,7 +53,7 @@ class Point
 {
 public:
 // Define "accessor" functions as
-//  lvalueAndRvalue types.
+//  reference types.
     unsigned& x();
     unsigned& y();
 private:

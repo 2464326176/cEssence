@@ -33,7 +33,7 @@ void personVector()
     persons.push_back(std::make_unique<programming>(14, "Kimi ga Iru Dake de"));
     persons.push_back(std::make_unique<programming>(15, "Poker Face"));
 
-    // Pass by const lvalueAndRvalue when possible to avoid copying.
+    // Pass by const reference when possible to avoid copying.
     for (const auto& person : persons)
     {
         std::cout << "Artist: " << person->getAge() << " Title: " << person->getName() << std::endl;
