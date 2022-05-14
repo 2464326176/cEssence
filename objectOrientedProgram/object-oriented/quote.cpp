@@ -36,7 +36,7 @@ int main1() {
     Quote *quote_pointer = &bulk_quote;
     quote_pointer->net_price(5);
 
-    // The lvalueAndRvalue is of static type Quote, but it's dynamic type is Bulk Quote
+    // The reference is of static type Quote, but it's dynamic type is Bulk Quote
     // Like with the pointer, the Bulk Quote implementation of the net_price()
     // method gets called.
     Quote &quote_reference = bulk_quote;
@@ -83,7 +83,7 @@ int main()
      *  Once dynamic binding happens, the corresponding vertual function in derived class will
      *  be called rather than that of the subobject inside the derived object.
      *
-     *  Anyway, the lvalueAndRvalue is essentially an address being passed.
+     *  Anyway, the reference is essentially an address being passed.
      *
      */
     print_debug(q);
