@@ -5,14 +5,40 @@
 # cEssence
 
 ## 1、c++基础编程
+- **[c++基础](basicsProgram/BasicCompilationPrinciple/README.md)**
+    - 编译原理
+    - c++关键字
+    - 数据类型
+    - 变量、常量、对象
+    - 初始化和赋值
+    - 定义和声明
+    - c++内存分配
+    - 作用域
+    - const和constexpr
+    - 类型别名
+    - auto
+    - decltype
 
-- **[编译原理](basicsProgram/PrincipleofCompiler/README.md)**
-- **[基本数据类型](basicsProgram/PrincipleofCompiler/basicDataType/README.md)**
-- **[IO流](basicsProgram/IO/README.md)**
 - **[指针总结](basicsProgram/pointerTopic/README.md)**
+    - 指针归纳总结
+    - 指针和数组
+    - 指针和函数
+    - 指针和结构体
+    - 多重指针
+    - 智能指针
+
 - **[动态内存](basicsProgram/dynamicMemory/README.md)**
 - **[函数话题](basicsProgram/function/README.md)**
-- **[左值右值](basicsProgram/lvalueAndRvalue/README.md)**
+    - 函数、实参、形参
+    - 局部对象、自动对象、局部静态对象
+    - 形参、局部变量、局部静态变量
+    - 分离式编程、参数传递
+    - 指针形参
+    - 函数返回类型
+    - 函数匹配
+
+- **[左值右值](basicsProgram/reference/README.md)**
+- **[IO流](basicsProgram/IO/README.md)**
 - **[STL](basicsProgram/container/README.md)**
 
 ## 2、面向过程编程
