@@ -1,6 +1,6 @@
+[TOC]
+
 # 编译原理
-
-
 
 c++ 在c的基础上，融合了三种不同的编程方式：c语言过程化、c++面向对象、c++模板的泛型；
 
@@ -484,6 +484,30 @@ int main() {
 
 ```c++
 {
+    // c 语言传统方法
+    typedef double wages; // wages 是double的别名 同义词
+    typedef wages base, *p; // base是 double的别名 *p是double *别名
+
+    // c++新的方法
+    using db = double; // db 是double的别名
+
+    wages wages1 = 3145.5;
+    db wages2 = 6589.9;
+    printf("%f %f ", wages1, wages2);
+}
+
+{
+    //指针 常量 类型别名
+    typedef char *pString; // pString 是char *别名
+    const pString cstr = 0; // cstrr是指向char *的常量指针
+    const pString *ps; // ps是一个常量指针 它的对象是指向char的常量指针
+}
+```
+
+# auto类型说明符
+
+```c++
+{
     int m = 6;
     double n = 3.15;
     auto item1 = m + n; //乱码
@@ -518,6 +542,44 @@ int main() {
     //auto &n = i, *p2 = &ci; // error i的类型是int ci的类型是const int
 }
 ```
+
+# decltype类型说明符
+
+从表达式类型推断出来定义的变量的类型，但是不想用该表达式的值的初始值变量，decltype选择并且返回操作数的数据类型，编译器分析表达式并且得到他的类型，不去计算表达式的值；
+
+```c++
+decltype(f())  sum = x; // sum的类型就是函数f的返回类型
+// 编译器并不实际调用f，而是使用当调用发生时f的返回类型作为sum的类型
+
+//decltype 处理顶层const和引用的方式和auto有些不一样 如果decltype使用的表达式时一个变量，则decltype返回该变量的类型（包括顶层const和引用在内）；
+const int ci = 0, &cj = ci;
+decltype(ci)  x = 0; // x的类型时const int
+decltype(cj)  y = x; // y的类型时const int &，y绑定到变量x
+//decltype(cj)  z; //error z是一个引用 必须初始化
+```
+
+## decltype 和引用
+
+如果decltype使用的是表达式不是一个变量，则decltype返回表达式结果对应的类型；有些表达式将向decltype返回一个引用类型，一般当这种情况发生时，意味着该表达式的结果能作为一条赋值语句的左值；
+
+```c++
+int i = 42, *p = &i, &r = i;
+decltype(r + 0) b; // 正确 加法是int
+decltype(*p) c; //error c是int & 必须初始化
+```
+
+## decltype和auto
+
+decltype的结果类型与表达式密切相关，对于decltype所用的表达式来说，如果变量名加上了一堆括号，则得到的类型与不加括号会不一样；如果decltype使用的是一个不加括号的变量，则得到的结果就是该变量的类型；如果给变量加了一层或者多层括号，编译器会把它当作一个表达式，变量是一种可以作为赋值语句左值的特殊的表达式，所以这样的decltype就会得到引用类型；
+
+```
+//decltype((i)) d; // error d是一个int &，必须初始化
+decltype(i)	e; //正确 e是一个（未初始化的）int
+```
+
+decltype((variable))的结果永远是引用，而decltype(variable) 结果只有当variable本身是一个引用的时候才是引用；
+
+
 
 
 
