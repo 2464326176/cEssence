@@ -36,11 +36,9 @@ typora-root-url: ..\..\staticFile\data\image
 
 5.如果程序需要在头尾插入或者删除元素，但是不会再中间插入或者删除元素，使用deque；
 
-6.如果程序在读取输入时才需要在容器中间位置插入元素，随后需要在随机访问元素
+6.如果程序在读取输入时才需要在容器中间位置插入元素，随后需要在随机访问元素;
 
-​	首先确认是不是需要在容器中间位置插入元素，当处理输入数据时通常可以向vec添加数据，然后调用sort排序，避免在中间插入元素；
-
-​	必须在中间插入元素，先使用list，在使用vectorcopy一次；
+​	首先确认是不是需要在容器中间位置插入元素，当处理输入数据时通常可以向vec添加数据，然后调用sort排序，避免在中间插入元素；必须在中间插入元素，先使用list，在使用vectorcopy一次；
 
 ### 1、顺序容器（Sequence Containers）
 
@@ -75,7 +73,7 @@ Forward list (class template )
 
 List (class template )
 
-### 6.string
+#### 6.string
 
 
 

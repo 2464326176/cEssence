@@ -4,11 +4,8 @@
 //**************************
 
 #include "vector.h"
-#include <iostream>
-#include <vector>
-#include <algorithm>
 
-using namespace std;
+
 
 template <typename T>
 void _print(vector<T> &V) {
@@ -16,6 +13,24 @@ void _print(vector<T> &V) {
         cout << v << " ";
     }
     cout << endl;
+}
+
+// construct
+void _construct() {
+    vector<int> other_vec{1, 3, 7 , 9, 11, 15, 19};
+    vector<int> vec1;                       // vec is empty
+    vector<int> vec2(10);                // 0
+    vector<int> vec3(10, 1);       // 1
+    vector<int> vec4{ 1, 2, 3, 4, 5 };      // 1, 2, 3, 4, 5
+    vector<int> vec5(other_vec);            // same as other_vec
+    vector<int> vec6(other_vec.begin(), other_vec.end()); // same as other_vec
+
+    _print(vec1);
+    _print(vec2);
+    _print(vec3);
+    _print(vec4);
+    _print(vec5);
+    _print(vec6);
 }
 
 int _insert() {
@@ -56,8 +71,20 @@ void _erase() {
     _print(vInt);
 }
 
-int main() {
+//find iterator
+void _bound() {
+    vector<int> v{1, 3, 7 , 9, 11, 15, 19};
+
+
+
+
+}
+
+
+
+int main1() {
+    _construct();
     //_insert();
-    _erase();
+    //_erase();
     return 0;
 }

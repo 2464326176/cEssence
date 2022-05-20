@@ -6,6 +6,54 @@
 #include "string.h"
 #include <algorithm>
 
+
+// 构造函数
+/*
+default (1)             string();
+copy (2)                string (const string& str);
+substring (3)           string (const string& str, size_t pos, size_t len = npos);
+from c-string (4)       string (const char* s);
+from buffer (5)         string (const char* s, size_t n);
+fill (6)                string (size_t n, char c);
+range (7)               template <class InputIterator>
+                        string  (InputIterator first, InputIterator last);
+initializer list (8)    string (initializer_list<char> il);
+move (9)                string (string&& str) noexcept;
+*/
+void construct() {
+    std::string s0 ("Initial string");
+    // constructors used in the same order as described above:
+    std::string s1;
+    std::string s2 (s0);
+    std::string s3 (s0, 8, 3);
+    std::string s4 ("A character sequence");
+    std::string s5 ("Another character sequence", 12);
+    std::string s6a (10, 'x');
+    std::string s6b (10, 42);      // 42 is the ASCII code for '*'
+    std::string s7 (s0.begin(), s0.begin()+7);
+
+    std::cout << "s1: " << s1 << "\ns2: " << s2 << "\ns3: " << s3;
+    std::cout << "\ns4: " << s4 << "\ns5: " << s5 << "\ns6a: " << s6a;
+    std::cout << "\ns6b: " << s6b << "\ns7: " << s7 << '\n';
+
+}
+
+// operator=
+/*
+string (1)    			string& operator= (const string& str);
+c-string (2)    		string& operator= (const char* s);
+character (3)    		string& operator= (char c);
+initializer list (4)    string& operator= (initializer_list<char> il);
+move (5)    			string& operator= (string&& str) noexcept;
+ */
+void operatorString() {
+    std::string str1, str2, str3;
+    str1 = "Test string: ";   // c-string
+    str2 = 'x';               // single character
+    str3 = str1 + str2;       // string
+    std::cout << str3  << '\n';
+}
+
 //赋值操作
 /*
 string &operator=(const string &s);//把字符串s赋给当前的字符串
@@ -163,11 +211,11 @@ void _find_first_of()
 }
 
 int main() {
+    construct();
     //_assign();
     //_find_replace();
     //_insert_earse();
     //_algorithms();
-
 
     return 0;
 }
