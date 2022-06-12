@@ -45,7 +45,7 @@
 
 ## 3、面向对象编程
 
-- **[构造函数析构函数](objectOrientedProgram/object-oriented/constructAndDestructFunction/README.md)**
+- **[构造函数析构函数](objectOrientedProgram/object-oriented/constructDestruct/README.md)**
 - **[封装](objectOrientedProgram/object-oriented/Class/README.md)**
 - **[继承](objectOrientedProgram/object-oriented/inherit/README.md)**
 - **[多态](objectOrientedProgram/object-oriented/polymorphic/README.md)**
@@ -53,6 +53,7 @@
 - **[友元](objectOrientedProgram/object-oriented/firendClass)**
 - **[操作符重载](objectOrientedProgram/object-oriented/overloadOperator/README.md)**
 - **[重载重写重定义](objectOrientedProgram/object-oriented/overrideOverloadRedefine/README.md)**
+- 新特性关键字
 
 ## 4、泛型编程
 
