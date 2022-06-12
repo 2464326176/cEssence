@@ -6,21 +6,20 @@
 #include "object.h"
 
 // 1
-//		malloc	free				cÓïÑÔµÄº¯Êý
-//		new		delete ²Ù×÷·û	c++µÄÓï·¨
-//2		new »ù´¡ÀàÐÍ±äÁ¿  ·ÖÅäÊý×é±äÁ¿  ·ÖÅäÀà¶ÔÏó
+//		mallocFree	free				cï¿½ï¿½ï¿½ÔµÄºï¿½ï¿½ï¿½
+//		new		delete ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	c++ï¿½ï¿½ï¿½ï·¨
+//2		new ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í±ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //3
 
 //assignment base type
-void main01()
-{
+void main01() {
     //
-    int *p = (int *)malloc(sizeof(int));
+    int *p = (int *) malloc(sizeof(int));
     *p = 10;
     //free(p);
     delete p;
-
-    int *p2 = new int; //·ÖÅä»ù´¡ÀàÐÍ
+    
+    int *p2 = new int; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     *p2 = 20;
     free(p2);
     //
@@ -28,47 +27,45 @@ void main01()
     printf("*p3:%d \n", *p3);
     //delete p3;
     free(p3);
-
-    return ;
+    
+    return;
 }
 
 //assignment array type
-void main02()
-{
-    //cÓïÑÔ·ÖÅäÊý×é
-    int *p = (int *)malloc(sizeof(int) * 10);  //int array[10];
+void main02() {
+    //cï¿½ï¿½ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int *p = (int *) malloc(sizeof(int) * 10);  //int array[10];
     p[0] = 1;
     //free(p);
     delete[] p;
-
-    //c++·ÖÅäÊý×é
-    int *pArray = new int[10] ;
+    
+    //c++ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int *pArray = new int[10];
     pArray[1] = 2;
-    //delete [] pArray; //Êý×é²»Òª°Ñ[] Íü¼Ç
+    //delete [] pArray; //ï¿½ï¿½ï¿½é²»Òªï¿½ï¿½[] ï¿½ï¿½ï¿½ï¿½
     free(pArray);
-
-    char *pArray2 = new char[25] ; //char buf[25]
-    delete [] pArray2;
-    return ;
+    
+    char *pArray2 = new char[25]; //char buf[25]
+    delete[] pArray2;
+    return;
 }
 
-//·ÖÅä¶ÔÏónew delete
-//ÏàÍ¬ ºÍ ²»Í¬µÄµØ·½ newÄÜÖ´ÐÐÀàÐÍ¹¹Ôìº¯Êý   delete²Ù×÷·û ÄÜÖ´ÐÐÀàµÄÎö¹¹º¯Êý
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½new delete
+//ï¿½ï¿½Í¬ ï¿½ï¿½ ï¿½ï¿½Í¬ï¿½ÄµØ·ï¿½ newï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½Í¹ï¿½ï¿½ìº¯ï¿½ï¿½   deleteï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-//	malloc 	freeº¯Êý C
-//1 new 	delete ²Ù×÷·ûºÅ c++µÄ¹Ø¼ü×Ö
-//½áÂÛ
-int main()
-{
+//	mallocFree 	freeï¿½ï¿½ï¿½ï¿½ C
+//1 new 	delete ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ c++ï¿½Ä¹Ø¼ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½
+int main() {
     //c
-    Object *pT1 = (Object *)malloc(sizeof(Object));
+    Object *pT1 = (Object *) malloc(sizeof(Object));
     //free(pT1);
     delete pT1;
-
+    
     //c++
     Object *pT2 = new Object(10);
     //delete pT2;
     free(pT2);
-
+    
     return 0;
 }

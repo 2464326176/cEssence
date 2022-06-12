@@ -32,9 +32,6 @@ private:
 };
 
 
-
-
-
 int main() {
     object obj(1, 2.2, 5);
     obj.print();
