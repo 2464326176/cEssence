@@ -2,8 +2,6 @@
 
 [TOC]
 
-
-
 # 一、指针变量归纳
 
 ```c++
@@ -30,11 +28,11 @@ p = m_a; // a是一个int数组类型 p指向a的首元素
 | int (*P)[4]; | int (*)[4] | p指向包含4个元素的一维数组的指针变量                         |
 | int f();     | int ()     | f为返回整型函数值的函数                                      |
 | int *p();    | int *()    | p为返回一个指针的函数 指针指向整型数据                       |
-| int  (*p)()  | int (*)()  | p为指向函数的指针  函数返回一个整数值                        |
+| int  (*p)()  | int (*)()  | p为指向函数的指针 函数返回一个整数值                        |
 | int **p;     | int **     | p是一个指针变量 指向一个指向整型数据的指针变量               |
 | void *p;     | void *     | p是一个指针变量 该类型为void类型（空类型），不指向具体的对象 |
 
-## 1.1指针是一种数据类型   
+## 1.1指针是一种数据类型
 
 1）指针也是一种变量，占有内存空间，用来保存内存地址
 
@@ -87,13 +85,13 @@ p = m_a; // a是一个int数组类型 p指向a的首元素
 3）指针变量和它指向的内存块是两个不同的概念
 
 - 给p赋值p=0x1111; 只会改变指针变量值，不会改变所指的内容；p = p +1; //p++
-- 给*p赋值* p='m_a'; 不会改变指针变量的值，只会改变所指的内存块的值 
+- 给*p赋值* p='m_a'; 不会改变指针变量的值，只会改变所指的内存块的值
 - =左边*p 表示 给内存赋值， =右边*p 表示取值 含义不同切结！
 - 保证所指的内存块能修改
 
-4）指针是一种数据类型，是指它指向的内存空间的数据类型 
+4）指针是一种数据类型，是指它指向的内存空间的数据类型
 
-​	指针步长（p++), 根据所致内存空间的数据类型来确定
+​ 指针步长（p++), 根据所致内存空间的数据类型来确定
 
 ```c++
 p++ = (unsigned char )p + sizeof(m_a);
@@ -101,9 +99,9 @@ p++ = (unsigned char )p + sizeof(m_a);
 
 结论：指针的步长，根据所指内存空间类型来定。
 
-注意:  建立指针指向谁，就把把谁的地址赋值给指针。图和代码和二为一。     
+注意:  建立指针指向谁，就把把谁的地址赋值给指针。图和代码和二为一。
 
-​          不断的给指针变量赋值，就是不断的改变指针变量（和所指向内存空间没有任何关系）。
+​ 不断的给指针变量赋值，就是不断的改变指针变量（和所指向内存空间没有任何关系）。
 
 ## 1.2：间接赋值是指针存在的最大意义
 
@@ -111,11 +109,11 @@ p++ = (unsigned char )p + sizeof(m_a);
 
 2）条件反射：指针指向某个变量，就是把某个变量地址否给指针
 
-3）*p间接赋值成立条件：3个条件 
+3）*p间接赋值成立条件：3个条件
 
 - 2个变量（通常一个实参，一个形参）
-- 建立关系，实参取地址赋给形参指针 
-- *p形参去间接修改实参的值 
+- 建立关系，实参取地址赋给形参指针
+- *p形参去间接修改实参的值
 
 ```c++
 int iNum = 0; //实参
@@ -137,18 +135,17 @@ iNum = 1; 	// 直接修改
 
 //指针作为函数参数的精髓。
 
-## 1.3：理解指针必须和内存四区概念相结合 
+## 1.3：理解指针必须和内存四区概念相结合
 
-1）主调函数 被调函数 
+1）主调函数 被调函数
 
--  主调函数可把堆区、栈区、全局数据内存地址传给被调用函数
--  被调用函数只能返回堆区、全局数据
+- 主调函数可把堆区、栈区、全局数据内存地址传给被调用函数
+- 被调用函数只能返回堆区、全局数据
 
 2）内存分配方式
 
 - 指针做函数参数，是有输入和输出特性的。
-- 指针做输出：被调用函数分配内存
-    指针做输入：主调用函数 分配内存
+- 指针做输出：被调用函数分配内存 指针做输入：主调用函数 分配内存
 
 ## 1.4：应用指针必须和函数调用相结合
 
@@ -205,12 +202,11 @@ getMem(char **p1, int *len1, char **p2, int *len2) //二级指针做输出
 
 - 被调用函数是在heap/stack上分配内存
 
-
 ## 1.7： 三级指针输出典型用法
 
 三级指针做输出
 
-int getFileAllLine(char ***content, int *pLine); 
+int getFileAllLine(char ***content, int *pLine);
 
 int getFileAllLine_Free(char ***content, int *pLine);
 
@@ -218,12 +214,11 @@ int getFileAllLine_Free(char ***content, int *pLine);
 
 - 被调用函数是在heap/stack上分配内存
 
-
 ## 1.8：杂项，指针用法几点扩充
 
 1）野指针 2种free形式
 
-int getData(char **data, int *dataLen); 
+int getData(char **data, int *dataLen);
 
 int getData_Free(void *data);
 
@@ -399,10 +394,6 @@ for(int i = 0; i < 3; ++i) {
 }
 ```
 
-
-
-
-
 # 三、指针和函数
 
 ## 3.1 函数指针
@@ -429,17 +420,17 @@ int *m_a(int x, int y);  // a函数名字 调用a可以返回一个int*型（指
 
 ## 函数指针和指针函数
 
-// Declare pointer to any function that... 
+// Declare pointer to any function that...
 
-// ...accepts m_a string and returns m_a string 
+// ...accepts m_a string and returns m_a string
 
 string (*g)(string m_a); *
 
-*// has no return value and no parameters void (*x)(); 
+*// has no return value and no parameters void (*x)();
 
-// ...returns an int and takes three parameters 
+// ...returns an int and takes three parameters
 
-// of the specified types 
+// of the specified types
 
 int (*i)(int i, string s, double d);
 
@@ -642,23 +633,23 @@ struct Student {
     float aver;
 };
 
-void input(struct Student *stu) {
-    struct Student *p = stu;
-    for(; p < stu + NUM; ++p) {
+void input(struct Student *Stu) {
+    struct Student *p = Stu;
+    for(; p < Stu + NUM; ++p) {
         scanf("%d %s %f %f %f", &p->num, &p->name, &p->score[0], &p->score[1], &p->score[2]);
         p->aver = (p->score[0] + p->score[1] + p->score[2]) / 3.0;
     }
 
     /*for(int i = 0; i < NUM; ++i) {
-        scanf("%d %s %f %f %f", &stu[i].num, &stu[i].name, &stu[i].score[0], &stu[i].score[1], &stu[i].score[2]);
-        stu[i].aver = (stu[i].score[0] + stu[i].score[1] + stu[i].score[2]) / 3.0;
+        scanf("%d %s %f %f %f", &Stu[i].num, &Stu[i].name, &Stu[i].score[0], &Stu[i].score[1], &Stu[i].score[2]);
+        Stu[i].aver = (Stu[i].score[0] + Stu[i].score[1] + Stu[i].score[2]) / 3.0;
     }*/
 }
 
-struct Student max(struct Student stu[]) {
-    struct Student *p = stu + 1, *q = stu;
+struct Student max(struct Student Stu[]) {
+    struct Student *p = Stu + 1, *q = Stu;
 
-    for(; p < stu + NUM; ++p) {
+    for(; p < Stu + NUM; ++p) {
         if(p->aver > q->aver) {
             q = p;
         }
@@ -666,21 +657,21 @@ struct Student max(struct Student stu[]) {
     return *q;
     /*int m = 0;
     for(int i = 1; i < NUM; ++i) {
-        if(stu[i].aver > stu[i - 1].aver) {
+        if(Stu[i].aver > Stu[i - 1].aver) {
             m = i;
         }
     }
-    return stu[m];*/
+    return Stu[m];*/
 }
 
-void printfStruct(struct Student stu) {
-    printf("%d %s %f %f %f %f", stu.num, stu.name, stu.score[0], stu.score[1], stu.score[2], stu.aver);
+void printfStruct(struct Student Stu) {
+    printf("%d %s %f %f %f %f", Stu.num, Stu.name, Stu.score[0], Stu.score[1], Stu.score[2], Stu.aver);
 }
 
 int main() {
-    struct Student stu[NUM];
-    input(stu);
-    printfStruct(max(stu));
+    struct Student Stu[NUM];
+    input(Stu);
+    printfStruct(max(Stu));
     return 0;
 }
 ```
