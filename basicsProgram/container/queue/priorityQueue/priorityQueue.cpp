@@ -31,9 +31,9 @@ void print_queue(T &q) {
 int main() {
     std::priority_queue<int> c1(std::less<int>(), {5, 6, 4, 2, 1});
     print_queue(c1);
-
-//    std::priority_queue<int> c2(std::greater<int>(), {5, 6, 4, 2, 1});
-//    print_queue(c2);
+    
+    std::priority_queue<int, std::vector<int>, std::greater<int>> c2(std::greater<int>(), {5, 6, 4, 2, 1});
+    print_queue(c2);
     
     std::priority_queue<int> q;
     for (int n: {1, 8, 5, 6, 3, 4, 0, 9, 7, 2}) {
