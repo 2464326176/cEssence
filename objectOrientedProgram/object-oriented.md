@@ -11,7 +11,8 @@
 
 析构函数可以为virtual型的，构造函数却不能，虚函数采用一种虚调用的方法，虚调用是一种可以在只有部分信息的情况下工作的机制，特别允许我们调用一个只知道接口而不知道其准确的对象类型的函数。但是如果要创建一个对象，必须要知道对象准确的类型，因此构造函数不能为虚函数；
 
-每个虚函数的对象必须维护一个virtual table，因此在使用虚函数的时候会产生一个系统的开销；如果仅是很小的类，且不需要派生类（子类），不需要虚函数；每个对象的虚表指针指向虚表，虚表存放虚函数的地址；虚函数表是顺序存放虚函数地址的，不需要用到链表；
+每个虚函数的对象必须维护一个virtual
+table，因此在使用虚函数的时候会产生一个系统的开销；如果仅是很小的类，且不需要派生类（子类），不需要虚函数；每个对象的虚表指针指向虚表，虚表存放虚函数的地址；虚函数表是顺序存放虚函数地址的，不需要用到链表；
 
 ## 1、构造函数
 
@@ -123,8 +124,6 @@ item.combine("xxx-1156-9875"); // error 没有char*的 无法从char*转化为�
 - 大括号：初始化数组中的元素或聚合类的成员;
 - 某些类类型还为它们分配的对象使用复制初始化;
 
-
-
 直接初始化：采用类中定义好的参数匹配的构造函数；
 
 拷贝初始化：将右侧运算对象拷贝到正在创建的对象中，如果需要的话还要进行类型转换；
@@ -137,11 +136,7 @@ string null_books = "99999"; // 拷贝初始化
 string nines = string(10, '0'); // 拷贝初始化
 ```
 
-
-
 ## 3、赋值构造函数
-
-
 
 ```C++
 myClass(): data(i); // 带参数的构造函数， 冒号后面是成员变量初始化列表（member 			   					   // initializationlist）
@@ -166,7 +161,11 @@ friend是类授予非公共成员访问权限的机制。他们享有与成员�
 
 ### virtual
 
-virtual 告诉编译器不应当完成早绑定，相反应当自动安装完成晚绑定所必需的所有的机制，编译器对每个包含虚函数的类创建一个表（vtable），编译器放置特定类的虚函数地址，每个带虚函数的类中，编译器秘密的设置一指针，成为vpointer（vptr），指向这个对象的vtable，通过基类指针作虚函数调用时（多态调用时），编译器静态地插入取得这个vptr，并且在vtable表中查找这个函数地址的代码，这样就能调用正确的函数使晚绑定发生；
+编译器处理虚函数的方法是给每个对象添加一个隐藏成员，隐藏成员中保存了一个指向函数地址数组的指针。这种数组被称为虚函数表（virtual function table vtbl），虚函数表中存储了为类对象进行声明的虚函数地址。例如
+基类对象中包含一个指针，该指针指向基类中所有虚函数的地址表。派生类对象将包含一个指向独立地址表的指针。如果派生类提供了虚函数的新定义，该虚函数表将保存新函数的地址；如果派生类没有重新定义虚函数，该vtbl将保存函数原始版本的地址；如果派生类定义了新的虚函数，则该函数的地址也被添加到vtbl中，无论类中包含的虚函数是一个还是多个都只需要在对象中添加一个地址成员；
+
+virtual
+告诉编译器不应当完成早绑定，相反应当自动安装完成晚绑定所必需的所有的机制，编译器对每个包含虚函数的类创建一个表（vtable），编译器放置特定类的虚函数地址，每个带虚函数的类中，编译器秘密的设置一指针，成为vpointer（vptr），指向这个对象的vtable，通过基类指针作虚函数调用时（多态调用时），编译器静态地插入取得这个vptr，并且在vtable表中查找这个函数地址的代码，这样就能调用正确的函数使晚绑定发生；
 
 <img src="../staticFile/data/image/virtualTable.png"  />
 
@@ -192,7 +191,9 @@ virtual 告诉编译器不应当完成早绑定，相反应当自动安装完成
 
 ### RTTI(dynamic_cast和typeid)
 
-RTTI,runtime type information，运行时开销主要在进行整型比较和取址操作所增加的开销，定义一个type_info对象（包括类型ID和类名称）的空间开销。“dynamic_cast”用在类层次结构中漫游，对指针或者引用进行自由的向上、向下或者交叉转化。“typeid”则用于获取一个对象或者引用的准切类型。一般来说能使用虚函数解决不要使用dynamic_type, 能使用dynamic_type就不要使用typeid；
+RTTI,runtime type
+information，运行时开销主要在进行整型比较和取址操作所增加的开销，定义一个type_info对象（包括类型ID和类名称）的空间开销。“dynamic_cast”用在类层次结构中漫游，对指针或者引用进行自由的向上、向下或者交叉转化。“typeid”则用于获取一个对象或者引用的准切类型。一般来说能使用虚函数解决不要使用dynamic_type,
+能使用dynamic_type就不要使用typeid；
 
 ### 异常
 
@@ -273,8 +274,6 @@ Point pt;
 pt.operator+( 3 );  // Call addition operator to add 3 to pt.
 ```
 
-
-
 下面的示例重载 运算符 **+** 以添加两个复数并返回结果。
 
 C++复制
@@ -307,20 +306,16 @@ int main() {
 }
 ```
 
-
-
-
-
 最小函数 *声明* 包含返回类型、函数名称和参数列表 (可能为空) 以及向编译器提供其他指令的可选关键字。 以下示例是函数声明：
 
 ```cpp
-int sum(int m_a, int b);
+int print(int m_a, int b);
 ```
 
 函数定义由声明和 *正文*组成，正文是大括号之间的所有代码：
 
 ```cpp
-int sum(int m_a, int b)
+int print(int m_a, int b)
 {
     return m_a + b;
 }
@@ -330,7 +325,8 @@ int sum(int m_a, int b)
 
 函数声明的必需部分有：
 
-1. 返回类型，指定函数返回的值的类型;如果未返回任何值， **`void`** 则返回类型。 在 C++11 中， 是有效的返回类型，指示编译器从 return **`auto`** 语句推断该类型。 在 C++14 中， `decltype(auto)` 也是允许的。 有关详细信息，请参阅下面的“返回类型中的类型推导”。
+1. 返回类型，指定函数返回的值的类型;如果未返回任何值， **`void`** 则返回类型。 在 C++11 中， 是有效的返回类型，指示编译器从 return **`auto`** 语句推断该类型。 在 C++14
+   中， `decltype(auto)` 也是允许的。 有关详细信息，请参阅下面的“返回类型中的类型推导”。
 2. 函数名，必须以字母或下划线开头，不能包含空格。 一般而言，标准库函数名中的前导下划线指示私有成员函数，或不是供你的代码使用的非成员函数。
 3. 参数列表（一组用大括号限定、逗号分隔的零个或多个参数），指定类型以及可以用于在函数体内访问值的可选局部变量名。
 
@@ -338,7 +334,7 @@ int sum(int m_a, int b)
 
 1. **`constexpr`**，指示函数的返回值是常量值，可以在编译时进行计算。
 
-    C++复制
+   C++复制
 
     ```cpp
     constexpr float exp(float x, int n)
@@ -351,18 +347,18 @@ int sum(int m_a, int b)
 
 2. 其链接规范或 **`extern`****`static`** 。
 
-    C++复制
+   C++复制
 
     ```cpp
     //Declare printf with C linkage.
     extern "C" int printf( const char *fmt, ... );
     ```
 
-    有关详细信息，请参阅翻译 [单元和链接](https://docs.microsoft.com/zh-cn/cpp/cpp/program-and-linkage-cpp?view=msvc-170)。
+   有关详细信息，请参阅翻译 [单元和链接](https://docs.microsoft.com/zh-cn/cpp/cpp/program-and-linkage-cpp?view=msvc-170)。
 
 3. **`inline`**，指示编译器将函数的每次调用替换为函数代码本身。 在某个函数快速执行并且在性能关键代码段中重复调用的情况下，内联可以帮助提高性能。
 
-    C++复制
+   C++复制
 
     ```cpp
     inline double Account::GetBalance()
@@ -371,11 +367,11 @@ int sum(int m_a, int b)
     }
     ```
 
-    有关详细信息，请参阅 [内联函数](https://docs.microsoft.com/zh-cn/cpp/cpp/inline-functions-cpp?view=msvc-170)。
+   有关详细信息，请参阅 [内联函数](https://docs.microsoft.com/zh-cn/cpp/cpp/inline-functions-cpp?view=msvc-170)。
 
 4. 一 **`noexcept`** 个表达式，指定函数是否可以引发异常。 在下面的示例中，如果表达式计算结果为 ， `is_pod` 则函数不会引发异常 **`true`** 。
 
-    C++复制
+   C++复制
 
     ```cpp
     #include <type_traits>
@@ -384,17 +380,18 @@ int sum(int m_a, int b)
     T copy_object(T& obj) noexcept(std::is_pod<T>) {...}
     ```
 
-    有关详细信息，请参阅 [`noexcept`](https://docs.microsoft.com/zh-cn/cpp/cpp/noexcept-cpp?view=msvc-170)。
+   有关详细信息，请参阅 [`noexcept`](https://docs.microsoft.com/zh-cn/cpp/cpp/noexcept-cpp?view=msvc-170)。
 
 5. (成员函数) cv 限定符，该限定符指定函数是 **`const`** 还是 **`volatile`** 。
 
-6. (成员函数) **`virtual`****`override`** 、 或 。 **`final`** **`virtual`** 指定可以在派生类中重写函数。 **`override`** 表示派生类中的函数在重写虚函数。 **`final`** 表示函数不能在任何进一步的派生类中进行重写。 有关详细信息，请参阅 [虚拟函数](https://docs.microsoft.com/zh-cn/cpp/cpp/virtual-functions?view=msvc-170)。
+6. (成员函数) **`virtual`****`override`** 、 或 。 **`final`** **`virtual`** 指定可以在派生类中重写函数。 **`override`**
+   表示派生类中的函数在重写虚函数。 **`final`** 表示函数不能在任何进一步的派生类中进行重写。
+   有关详细信息，请参阅 [虚拟函数](https://docs.microsoft.com/zh-cn/cpp/cpp/virtual-functions?view=msvc-170)。
 
 7. (成员函数) 成员函数意味着该函数不与类的任何对象 **`static`** 实例相关联。
 
-8. (非静态成员函数仅) ref 限定符，它向编译器指定当隐式对象参数 () 是左值引用与左值引用时要选择的函数重载。 `*this` 有关详细信息，请参阅 [函数重载](https://docs.microsoft.com/zh-cn/cpp/cpp/function-overloading?view=msvc-170#ref-qualifiers)。
-
-
+8. (非静态成员函数仅) ref 限定符，它向编译器指定当隐式对象参数 () 是左值引用与左值引用时要选择的函数重载。 `*this`
+   有关详细信息，请参阅 [函数重载](https://docs.microsoft.com/zh-cn/cpp/cpp/function-overloading?view=msvc-170#ref-qualifiers)。
 
 const并不能代表“常量”，它仅仅是对变量的一个修饰，告诉编译器这个变量只能被初始化，且不能被直接修改（实际上可以通过堆栈溢出等方式修改）。而这个变量的值，可以在运行时也可以在编译时指定。
 

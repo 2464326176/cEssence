@@ -10,20 +10,21 @@
 #include <cstring>
 using namespace std;
 
-
 //ÐéÎö¹¹º¯Êý
 class A {
 public:
     A() {
         p = new char[20];
         strcpy(p, "obja");
-        printf("A()\n");
+        printf("A() a:%d\n", ++a);
     }
-
+    
     virtual ~A() {
         delete[] p;
         printf("~A()\n");
     }
+public:
+    static int a;
 
 protected:
 private:
@@ -37,7 +38,7 @@ public:
         strcpy(p, "objb");
         printf("B()\n");
     }
-
+    
     ~B() {
         delete[] p;
         printf("~B()\n");
@@ -48,7 +49,6 @@ private:
     char *p;
 };
 
-
 class C : public B {
 public:
     C() {
@@ -56,7 +56,7 @@ public:
         strcpy(p, "objc");
         printf("C()\n");
     }
-
+    
     ~C() {
         delete[] p;
         printf("~C()\n");
