@@ -519,7 +519,7 @@ struct {
 struct Student s = {.name = "lyh"}， s1; // 定义初始化，.name代表s.name，其余的数值型变量为0，字符型为'\0'，指针型为NULL;
 s.age = 15; // 结构体变量名.成员名 
 s.score = s1.socre; // 赋值运算
-sum = s.score + s1.socre; // 加法运算
+print = s.score + s1.socre; // 加法运算
 s1.age++; // 自加运算
 s1 = s2; // 同类的结构体变量可以互相赋值
 printf("%d ", &s1.age); // s1.age的地址

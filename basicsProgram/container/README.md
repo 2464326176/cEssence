@@ -4,27 +4,46 @@ typora-root-url: ..\..\staticFile\data\image
 
 # Container
 
-## 容器分类
+# 一、容器分类
 
-顺序容器（Sequence Containers）：不依赖元素的值，而是和元素加入容器的位置相对应；
+## 顺序容器
 
-顺序容器：
-
-顺序容器：
+顺序容器实现能按顺序访问的数据结构，不依赖元素的值，而是和元素加入容器的位置相对应；
 
 - vector  可变大小，支持快速随机访问，在尾部之外插入或者删除比较慢
-
 - deque  双端队列 支持快速随机访问 头尾插入删除快
-
 - list  双向链表  支持双向顺序访问 在list任意位置插入删除速度快
-
 - forward_list 单向链表 单向访问   在list任意位置插入删除速度快
-
 - array 固定数组 支持随机访问  不能添加或者删除元素 
-
 - string 与vector相似的容器  随机访问快 在尾部插入 删除速度快
 
-容器的选择
+## 关联容器
+
+关联容器实现能快速查找（ O(log n) 复杂度）的数据结构。
+
+- set唯一键的集合，按照键排序
+- map键值对的集合，按照键排序，键是唯一的
+- multiset键的集合，按照键排序
+- multimap键值对的集合，按照键排序
+
+## 无序关联容器
+
+无序关联容器提供能快速查找（均摊 O(1) ，最坏情况 O(n) 的复杂度）的无序（哈希）数据结构。
+
+- unordered_set唯一键的集合，按照键生成散列
+- unordered_map键值对的集合，按照键生成散列，键是唯一的
+- unordered_multiset键的集合，按照键生成散列
+- unordered_multimap键值对的集合，按照键生成散列
+
+## 容器适配器
+
+容器适配器提供顺序容器的不同接口。
+
+- stack 适配一个容器以提供栈（LIFO 数据结构）
+- queue 适配一个容器以提供队列（FIFO 数据结构）
+- priority_queue 适配一个容器以提供优先级队列	    
+
+## 容器的选择
 
 1.一般来说尽量选择vector，除非有更好的选择；
 
@@ -59,7 +78,11 @@ typora-root-url: ..\..\staticFile\data\image
 
 #### [**2.vector**](https://www.cplusplus.com/reference/vector/vector/)
 
-Vector (class template )
+```
+
+```
+
+
 
 #### [**3.deque**](https://www.cplusplus.com/reference/deque/deque/)
 
