@@ -4,7 +4,8 @@ C++提供两种模板机制：**函数模板、类模板**，使得程序（算�
 
 # 一、函数模板
 
-函数模板(function template)： 实际上是建立一个通用函数，其函数类型和形参类型不具体指定，用一个虚拟的类型来代表。这个通用函数就称为函数模板。凡是函数体相同的函数都可以用这个模板来代替，不必定义多个函数，只需在模板中定义一次即可。在调用函数时系统会根据实参的类型来取代模板中的虚拟类型，从而实现了不同函数的功能。
+函数模板(function template)：
+实际上是建立一个通用函数，其函数类型和形参类型不具体指定，用一个虚拟的类型来代表。这个通用函数就称为函数模板。凡是函数体相同的函数都可以用这个模板来代替，不必定义多个函数，只需在模板中定义一次即可。在调用函数时系统会根据实参的类型来取代模板中的虚拟类型，从而实现了不同函数的功能。
 
 - 模板把函数或类要处理的数据类型参数化，表现为参数的多态性，称为类属。
 - 模板用于表达逻辑结构相同，但具体数据元素类型不同的数据对象的通用行为。
@@ -53,18 +54,18 @@ swapVariable<float>(a, b); //显示类型调用
 swapVariable<double>(a1, b1); //显示类型调用 swapVariable(T &a, T &b)
 ```
 
-### 1.2.1 **函数模板和普通函数区别：** 
+### 1.2.1 **函数模板和普通函数区别：**
 
 函数模板不允许自动类型转化
 
 普通函数能够进行自动类型转换
 
-### 1.2.2 **函数模板和普通函数在一起，调用规则：** 
+### 1.2.2 **函数模板和普通函数在一起，调用规则：**
 
-1.  函数模板可以像普通函数一样被重载
-2.  C++编译器优先考虑普通函数
-3.  如果函数模板可以产生一个更好的匹配，那么选择模板
-4.  可以通过空模板实参列表的语法限定编译器只通过模板匹配
+1. 函数模板可以像普通函数一样被重载
+2. C++编译器优先考虑普通函数
+3. 如果函数模板可以产生一个更好的匹配，那么选择模板
+4. 可以通过空模板实参列表的语法限定编译器只通过模板匹配
 
 ## 1.3 template和class
 
@@ -76,6 +77,12 @@ extern template class vector<string>;
 //实例化定义。编译器将为它生成代码。 
 template class vector<Sales_data>;
 ```
+
+## 1.4 模板编译原理
+
+普通函数：头文件的函数声明，cpp中定义函数接口时对应的，在需要的时候link，所以不会有问题；
+
+模板函数：头文件中的时模板类型，cpp中的时已经生成的具体的类型，这样在其他文件调用的时候取link的时候找不到具体的对应，会编译报错；在模板cpp下调用则不会报错；
 
 # 二、模板实参推断
 
@@ -122,19 +129,17 @@ f2(cp1, cp2);   // f2<int const*, int const*>(int const*, int const*)
 //f1(p1, cp1);    // deduced conflicting types for parameter 'T'
 f2(p1, cp1);    // f2<int*, int const*>(int*, int const*)
 // 显示调用（explicit template argument ）
-template<typename T1, typename T2, typename T3> T1 sum(T2, T3);
-auto val3 = sum<long long>(i, lng); // long long sum(int long)
+template<typename T1, typename T2, typename T3> T1 print(T2, T3);
+auto val3 = print<long long>(i, lng); // long long print(int long)
 ```
 
 ### tips：
 
 1.1 将实参传递给带模板类型的函数形参时， 能够自动应用的类型转换只有const转化及数组或函数到指针的转换。
 
-1.2 在模板参数推导过程中会发生什么？
-			从函数参数中确定模板参数的过程称为模板参数推导。在模板参数推导期间，编译器使用调用中的参数类型来查找生成与给定调用最匹配的函数版本的模板参数。
-		1.3 命名模板参数推导中涉及的函数参数允许的两种类型转换。
-			const 转换：作为const 引用（或指针）的函数参数可以传递一个对非常量对象的引用（或指针）;
-			数组或函数到指针的转换：如果函数参数不是引用类型，那么普通的指针转换将应用于数组或函数类型的参数。数组参数将转换为指向其第一个元素的指针。类似地，函数参数将被转换为指向函数类型的指针;
+1.2 在模板参数推导过程中会发生什么？ 从函数参数中确定模板参数的过程称为模板参数推导。在模板参数推导期间，编译器使用调用中的参数类型来查找生成与给定调用最匹配的函数版本的模板参数。 1.3
+命名模板参数推导中涉及的函数参数允许的两种类型转换。 const 转换：作为const 引用（或指针）的函数参数可以传递一个对非常量对象的引用（或指针）;
+数组或函数到指针的转换：如果函数参数不是引用类型，那么普通的指针转换将应用于数组或函数类型的参数。数组参数将转换为指向其第一个元素的指针。类似地，函数参数将被转换为指向函数类型的指针;
 
 ## 2.2 尾置返回类型和类型转化
 
@@ -190,8 +195,6 @@ int main() {
 }
 ```
 
-
-
 ## 2.4 模板实参推断和引用
 
 ```C++
@@ -203,7 +206,7 @@ void f(T &P);
 
 - 从左值引用函数参数推断类型
 
-    ​	当一个函数参数式模板参数的一个普通（左值）引用时（T&），只能给它传递一个左值（一个变量或一个返回引用类型表达式），实参可以是const类型的，也可以不是。如果是const的，则T可以被推断为const类型
+  ​ 当一个函数参数式模板参数的一个普通（左值）引用时（T&），只能给它传递一个左值（一个变量或一个返回引用类型表达式），实参可以是const类型的，也可以不是。如果是const的，则T可以被推断为const类型
 
     ```c++
     template<typename T> void f1(T&) // 必须是一个左值
@@ -218,7 +221,7 @@ void f(T &P);
 
 - 从右值引用函数参数推断类型
 
-    当一个函数参数是一个右值引用（T&&），正常的绑定规则告诉我们可以传递一个右值
+  当一个函数参数是一个右值引用（T&&），正常的绑定规则告诉我们可以传递一个右值
 
     ```c++
     template<typename T> void f3(T&&) // 绑定到非const右值
@@ -241,7 +244,7 @@ X&& 和X&& &&被折叠成X&&
 // 顶层const和引用丢失了
 template<typename F, typename T1, typename T2>
 void flip(F f, T1 t1, T2 t2) {
-    f(t1, t2);
+f(t1, t2);
 }
 
 // f(42, i); // f 改变了实参i
@@ -249,7 +252,7 @@ void flip(F f, T1 t1, T2 t2) {
 
 template<typename F, typename T1, typename T2>
 void flip1(F f, T1 t1, T2 &t2) {
-    f(t1, t2);
+f(t1, t2);
 }
 
 // 如果函数参数是一个指向模板类型参数的右值引用（T &&）,它对应的实参的const属性和左值/右值属性都可以保持
@@ -259,65 +262,65 @@ void flip1(F f, T1 t1, T2 &t2) {
 // std::forward可以保存const属性和 左值/右值属性
 template<typename F, typename T1, typename T2>
 void flip2(F f, T1 &&t1, T2 &&t2) {
-    //f(std::forward<T1>(t1), std::forward<T2>(t2));
-    f(t1, t2);
+//f(std::forward<T1>(t1), std::forward<T2>(t2));
+f(t1, t2);
 }
 
 template<typename F, typename T1, typename T2>
 void flip3(F f, T1 &&t1, T2 &&t2) {
-    f(std::forward<T2>(t2), std::forward<T1>(t1));
+f(std::forward<T2>(t2), std::forward<T1>(t1));
 }
 
 void f(int v1, int &v2) {
-    cout << "v1 " << v1 << " v2: " << ++v2 << endl;
+cout << "v1 " << v1 << " v2: " << ++v2 << endl;
 }
 
 void f1(int &&v1, int &v2) {
-    cout << "v1 " << v1 << " v2: " << ++v2 << endl;
+cout << "v1 " << v1 << " v2: " << ++v2 << endl;
 }
 
 int main() {
-    int a = 5;
-    f(1, a); // a 的值会改变  f(int v1, int &v2)
-    printf("a: %d\n", a);
-    
-    flip(f, 2, a); // -》flip(void(*fcn)(int, int&), int t1, int t2);
-    printf("a: %d\n", a); // a 不会被改变
-    
-    flip1(f, 2, a); // -》flip1(void(*fcn)(int, int&), int t1, int &t2); 仅限于左值传递
-    printf("a: %d\n", a); // a会被改变
-    
-    //flip2(f1, a, 42);//
-    flip3(f1, a, 42);
-    
-    flip2(f, 2, a); // -》flip2(void(*fcn)(int, int&), int &&t1, int &&t2); 可以涵盖右值
-    // 2
-    printf("a: %d\n", a);
-    
-    return 0;
+int a = 5;
+f(1, a); // a 的值会改变  f(int v1, int &v2)
+printf("a: %d\n", a);
+
+flip(f, 2, a); // -》flip(void(*fcn)(int, int&), int t1, int t2);
+printf("a: %d\n", a); // a 不会被改变
+
+flip1(f, 2, a); // -》flip1(void(*fcn)(int, int&), int t1, int &t2); 仅限于左值传递
+printf("a: %d\n", a); // a会被改变
+
+//flip2(f1, a, 42);//
+flip3(f1, a, 42);
+
+flip2(f, 2, a); // -》flip2(void(*fcn)(int, int&), int &&t1, int &&t2); 可以涵盖右值
+// 2
+printf("a: %d\n", a);
+
+return 0;
 }
 
 int main2() {
-    template<typename T>
-    void f(T &P);
-    // 函数参数p是一个模板类型参数T的引用，编译器会应用正常的引用绑定：const时底层的，不是顶层的；
-    
-    // 从左值引用函数参数推断类型
-    template<typename T> void f1(T &) // 必须是一个左值
-    f1(i); // int
-    f1(ci); //const int
-    f1(5); //error 必须为左值
-    template<typename T> void f2(const T &) // 可以是一个右值
-    f1(i); // int
-    f1(ci); //const int
-    f1(5); //const & 可以绑定到右值
-    
-    // 从右值引用函数参数推断类型
-    template<typename T> void f3(T &&)
-    f3(42); // 实参是一个int类型的右值，模板参数T是int
-    
-    
-    return 0;
+template<typename T>
+void f(T &P);
+// 函数参数p是一个模板类型参数T的引用，编译器会应用正常的引用绑定：const时底层的，不是顶层的；
+
+// 从左值引用函数参数推断类型
+template<typename T> void f1(T &) // 必须是一个左值
+f1(i); // int
+f1(ci); //const int
+f1(5); //error 必须为左值
+template<typename T> void f2(const T &) // 可以是一个右值
+f1(i); // int
+f1(ci); //const int
+f1(5); //const & 可以绑定到右值
+
+// 从右值引用函数参数推断类型
+template<typename T> void f3(T &&)
+f3(42); // 实参是一个int类型的右值，模板参数T是int
+
+
+return 0;
 }
 ```
 
@@ -434,7 +437,6 @@ int main() {
 - 模板参数包（template parameter packet）：表示零个或多个模板参数；
 
 - 函数参数包（function parameter packet）：表示零个或多个函数参数；
-
 
 ```c++
 // Args 表示一个模板参数包 rest是一个函数参数包
