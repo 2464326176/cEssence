@@ -1,16 +1,20 @@
-//********************
-// Author:  yh
-// Time:    2020/10/8.
-// 
-//********************
-//
+/*
+ * @Author: yh
+ * @Date: 2022-05-20 23:53:25
+ * @LastEditTime: 2020/10/8. 01:58:00
+ * @Description: 
+ * @FilePath: \cEssence\basicsProgram\dynamicMemory\dynamicMemoryDebug\TraceNew.h
+ */
 #ifndef DEBUG_TRACENEW_H
 #define DEBUG_TRACENEW_H
 
 #define DEBUGNEW
 
 #ifdef DEBUGNEW
+#include <iostream>
 #include <map>
+
+using namespace std;
 
 void* operator new(size_t size, const char *file, long line);
 void* operator new(size_t size);

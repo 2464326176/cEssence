@@ -5,8 +5,6 @@
 
 #include <iostream>
 
-
-
 int main() {
     int _i;
     char _c;
@@ -25,7 +23,6 @@ int main() {
     printf("pStr    %d\n", sizeof(pStr));
     printf("pInt    %d\n", sizeof(pInt));
     printf("pInt    %d %d %d %p\n", 0x61fdfc, 4, 0x61fdfc - 4, 0x61fdfc - 4);
-
-
+    
     return 0;
 }
