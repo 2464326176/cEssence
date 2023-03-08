@@ -1,20 +1,23 @@
-//**************************
-// Author:  yh
-// Time:    2022/1/3
-//**************************
+/*
+ * @Author: yh
+ * @Date: 2022-05-20 23:53:25
+ * @LastEditTime: 2023-02-14 00:51:54
+ * @Description:
+ * @FilePath: \cEssence\exceptionHandling\cassert\_asser.cpp
+ */
 
-#include <stdio.h>
 #include <assert.h>
+#include <stdio.h>
 
 void print_number(int *myInt) {
-    assert (myInt != NULL);
+    assert(myInt != nullptr);
     printf("%d\n", *myInt);
 }
 
 int main() {
     int a = 10;
-    int *b = NULL;
-    int *c = NULL;
+    int *b = nullptr;
+    int *c = nullptr;
 
     b = &a;
     print_number(b);
