@@ -1,21 +1,23 @@
-# 指针专题总结
-
 [TOC]
+
+# 指针专题总结
 
 # 一、指针总结
 
 ```c++
-int value= 10; // value: 10, &value: 000000000062fe00
-int *p = nullPtr; // p是指向int类型的指针变量 空间为4个字节
-p = &value; // *p: 10, p: 000000000062fe00
-int m_a[10]; // a是一个数组 其中有10个元素
-p = m_a; // a是一个int数组类型 p指向a的首元素
-char (*getMax)(int x, int y); //指针函数
-char *getStr(); // 函数指针
-const int *p; // const指针
-int const *p; // const指针
-int * const p; // 指向const的指针
-const int * const p; // 指向const的const指针
+    int value = 10;                                    // value: 10, &value: 000000000062fe00
+    int *p = nullptr;                                  // p是指向int类型的指针变量 空间为4个字节
+    p = &value;                                        // *p: 10, p: 000000000062fe00
+    const int *p1;                                     // const指针 指针指向的值不可以被修改
+    int const *p2;                                     // const指针 指针指向的值不可以被修改
+    int *const p3 = &value;                            // 指向const的指针 指针的地址不可以被修改
+    const int *const p4 = &value;                      // 指向const的const指针 指针指向的值，指针的地址都不可以被修改
+    int array1[]{1, 2, 3, 5};                          // a是一个数组 其中有10个元素
+    int *p5 = array1;                                  // a是一个int数组类型 p指向a的首元素
+    int(*p6)[4] = &array1;                             // 数组指针，p0类型是 int(*)[10],其本质是一个指向数组地址的指针
+    int *p7[3] = {&array1[0], &array1[1], &array1[2]}; // 数组指针，p7本质是一个数组，里面存放的是int元素的指针地址
+    typedef char (*getMax)(int x, int y);              // 函数指针，其本质就是一个指针，指向函数
+    char *getStr(int x, int y);                        // 指针函数，其本质是一个函数，返回值是指针
 ```
 
 - p是一个指针， 存储着变量value的地址；
@@ -141,7 +143,7 @@ iNum = 1; 	// 直接修改
 
 //指针作为函数参数的精髓。
 
-## 1.3：理解指针必须和内存四区概念相结合
+## 1.3：指针和内存四区结合
 
 1）主调函数 被调函数
 
@@ -337,8 +339,8 @@ void printfArray(char **m_a, size_t num);
 // 二维数组在内存中也是线性排布的，类似于一维数组，唯一不同的地方 一维数组的a 和二维数组的a步长不一样；
 // 在二维数组也存在数组退化为指针的形式
 void func(char m_a[10])->void func(char m_a[])->void func(char *m_a);
-void func(char char m_a[3][10])->void func(char m_a[][10])->void func(char (*m_a)[10]);
-void func(char char *m_a[10])->void func(char **m_a);
+void func(char m_a[3][10])->void func(char m_a[][10])->void func(char (*m_a)[10]);
+void func(char *m_a[10])->void func(char **m_a);
 ```
 
 ## 2.6 数组指针

@@ -1,93 +1,134 @@
 //**************************
 // Author:  yh
-// Time:    2022/2/25
+// Time:    2022/3/10
 //**************************
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-#include "pointArray.h"
+//怎么样表达int a[10]这种数据类型那？int[]
+//类型本质：固定大小内存块的别名
+//定义数组类型
 
-using namespace std;
+//定义数组指针变量的方法1
+//用数组类型 *
+void main13() {
+    char *Myarray[] = {"1111", "33333", "aaaa"}; //指针数组
 
-int printfArray(int array[][2]) {
-    printf("%d \n", array[0][1]);
+    //数组指针  用一个指针 来指向一个数组
+
+    typedef int(MyArrayType)[5]; //定义了一个数据类型  数组数据类型
+    int i = 0;
+    MyArrayType myArray; // int myArray[5]; //用类型定义变量
+
+    MyArrayType *pArray; //定义一个指针变量 这个指针变量 指向一个数组
+
+    {
+        int a;
+        int *p = NULL;
+        p = &a;
+    }
+
+    {
+        int myArray2[5]; //相当于一级指针
+
+        pArray = &myArray2; //相当于2级指针
+        for (i = 0; i < 5; i++) {
+            (*pArray)[i] = i + 1;
+        }
+
+        for (i = 0; i < 5; i++) {
+            printf("%d ", (*pArray)[i]);
+        }
+    }
+
+    return;
+}
+
+//定义数组指针变量的第二种方法
+void main14() {
+    //定义声明一个数组指针类型
+    typedef int(*PArrayType)[5];
+    PArrayType pArray; //告诉编译器 给我分配一个指针变量
+
+    int c[5];
+    int i = 0;
+    pArray = &c;
+
+    for (i = 0; i < 5; i++) {
+        (*pArray)[i] = i + 1;
+    }
+
+    for (i = 0; i < 5; i++) {
+        printf("%d ", (*pArray)[i]);
+    }
+
+    return;
+}
+
+//定义数组指针变量的第三种方法
+//前2种方法 通过类型定义变量 比较麻烦
+
+void main116() {
+    // int [][5]
+    int(*pMyArray)[5]; //直接定义一个指向数组的 数组指针变量
+    int c[5];
+    int i = 0;
+    pMyArray = &c;
+
+    for (i = 0; i < 5; i++) {
+        (*pMyArray)[i] = i + 1;
+    }
+
+    for (i = 0; i < 5; i++) {
+        printf("%d ", (*pMyArray)[i]);
+    }
+
+    return;
+}
+
+int arrayPoint() {
+    int a[][4] = {1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23};
+    int *p;
+    int(*pArray)[4];
+
+    for (p = a[0]; p < a[0] + 12; ++p) {
+        if ((p - a[0]) % 4 == 0) {
+            printf("\n");
+        }
+        printf("%d ", *p);
+    }
+    printf("\n");
+
+    pArray = a;
+
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            printf("%d ", *(*(pArray + i) + j));
+        }
+        printf("\n");
+    }
     return 0;
 }
 
-int printfArray(int **p) {
-    printf("%d \n", *((int *) p + 2 * 0 + 0));
-    printf("%d \n", *((int *) p) + 2 * 1 + 0);
-    printf("%d \n", *((int *) p) + 2 * 2 + 0);
-    return 0;
+void average(float *p, int n) {
+    float *p_end = p + n - 1, sum = 0, aver = 0;
+    for (; p < p_end; ++p) {
+        sum = sum + *p;
+    }
+    aver = sum / n;
+    printf("aver: %f\n", aver);
 }
 
-int printfArray(int *p) {
-    printf("%d \n", *(p + 1));
-    return 0;
+void search(float (*p)[4], int n) {
+    for (int i = 0; i < 4; ++i) {
+        printf("%f ", *(*(p + n) + i));
+    }
+    printf("\n");
 }
-
-int printfArray1(int (*p)[2]) {
-    printf("%d \n", *(*(p + 0) + 1));
-    return 0;
-}
-
-void printfStudent(Student &student) {
-    printf("%s \n", student.classes);
-    printf("%p \n", student.dataSet[0]);
-    printf("%p \n", student.dataSet[1]);
-    printf("%p \n", student.dataSet[2]);
-}
-
-int test() {
-
-    int a1[10] = {1, 2, 3, 4, 5, 6, 7, 7};
-    int *p1 = &a1[0];
-    int *p2 = a1;
-
-    int a2[][2]{
-            {1, 2},
-            {3, 4},
-            {5, 6},
-    };
-    int (*p3)[2] = a2;  // p3ָ��2������Ԫ�ص�һλ���飬 ָ���ά�����0��
-    printfArray(a2);
-    printfArray((int *) a2);
-    printfArray((int **) a2);
-    printfArray1(a2);
-
-    *(p1 + 1), (p2 + 1), a1[1]; // ���ߵȼۣ���������ڶ���Ԫ�أ�ǰ����Ϊָ�뷨������Ϊ�±귨
-    a2[0], *(a2 + 0), *a2; // 0��0��Ԫ�ص�ַ
-    a2 + 1, &a2[1]; // 1���׵�ַ
-    a2[1], *(a2 + 1); // 1��0��Ԫ�ص�ַ
-    a2[1] + 2, *(a2 + 1) + 2, &a2[1][2]; // 1��2��Ԫ�ص�ַ
-    *(a2[1] + 2), *(*(a2 + 1) + 2), a2[1][2]; // 1��2��Ԫ��ֵ
-
-    return 0;
-}
-
 int main() {
-    int score[3][4] = {{46, 57, 79, 97},
-                       {46, 57, 79, 97},
-                       {46, 57, 79, 97}};
-    char className[12] = "class 1";
-    //printf("score address: %p\n, %p %p %p %p\n %d %d\n", \
-           score, score[0], &score[0][0], score[1], score[1][0], \
-           score[0][0], score[1][0]);
-    Score score1("С��", score[0]);
-    Score score2("С��", score[1]);
-    Score score3("С��", score[2]);
-
-    Student student(3);
-    student.classes = className;
-    student.dataSet[0] = score1.score;
-    student.dataSet[1] = score2.score;
-    student.dataSet[2] = score3.score;
-
-    printfStudent(student);
-
+    float score[3][4] = {{51, 52, 53, 54}, {61, 62, 63, 64}, {71, 72, 73, 74}};
+    average(*score, 12);
+    search(score, 2);
     return 0;
 }
-
-
-
-
-
-

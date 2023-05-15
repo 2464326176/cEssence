@@ -1,9 +1,32 @@
+/*
+ * @Author: yh
+ * @Date: 2022-05-20 23:53:25
+ * @LastEditTime: 2023-03-26 18:58:57
+ * @Description:
+ * @FilePath: \cEssence\basicsProgram\pointerTopic\pointer\typeSize.cpp
+ */
 //**************************
 // Author:  yh
 // Time:    2022/1/28
 //**************************
 
 #include <iostream>
+
+#pragma pack(2)
+
+struct st1 {
+    char c;
+    int i;
+    char c1;
+    int i1;
+};
+
+struct st {
+    char c;
+    int i;
+    char c1;
+    int i1;
+};
 
 int main() {
     int _i;
@@ -22,7 +45,6 @@ int main() {
     printf("_int    %d\n", sizeof(_int));
     printf("pStr    %d\n", sizeof(pStr));
     printf("pInt    %d\n", sizeof(pInt));
-    printf("pInt    %d %d %d %p\n", 0x61fdfc, 4, 0x61fdfc - 4, 0x61fdfc - 4);
-    
+    printf("st1: %d, st2: %d\n", sizeof(st), sizeof(st1));
     return 0;
 }
