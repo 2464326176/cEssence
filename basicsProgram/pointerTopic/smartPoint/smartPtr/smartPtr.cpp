@@ -21,7 +21,7 @@ public:
         mRefCount = smartPtr.mRefCount;
     }
 
-    SmartPtr<T> &operator=(SmartPtr<T> &smartPtr) {
+    SmartPtr &operator==(SmartPtr &smartPtr) {
         ++smartPtr.mRefCount;
         decrRef();
         mPtr = smartPtr.mPtr;

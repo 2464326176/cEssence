@@ -113,3 +113,6 @@ other
 out
 gen
 Cpp-Primer
+
+.cache
+.vscode
